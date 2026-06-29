@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>氷室結月 · 소레이 고등학교 월드 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&family=Gamja+Flower&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4f9ff; --bg2:#eaf4fb; --bg3:#e8f5ee;
+  --ink:#1a2a3a; --navy:#1a4a7a; --navy2:#2060a0;
+  --rose:#e07060; --peach:#f59060; --gold:#e8a020;
+  --mint:#3aaa7a; --sky:#3a90d0; --muted:#607080;
+  --border:rgba(26,42,58,0.1); --shadow:0 6px 32px rgba(26,42,58,0.09); --r:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.9;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 38px,rgba(58,144,208,.035) 38px,rgba(58,144,208,.035) 39px);
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(244,249,255,0.94);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:0 1rem;height:54px;
+  display:flex;align-items:center;gap:1rem;overflow:visible;
+}
+nav .nav-brand{flex-shrink:0;}
+nav .nav-links::-webkit-scrollbar{display:none;}
+.nav-brand{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--navy);letter-spacing:.1em;}
+.nav-links{display:flex;gap:.8rem;list-style:none;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;}
+.nav-links a{font-size:16px;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .2s;}
+.nav-links a:hover{color:var(--rose);}
+
+/* HERO */
+.hero{
+  min-height:100vh;padding-top:54px;
+  display:grid;grid-template-columns:420px 1fr;
+  background:linear-gradient(160deg,#1a4a7a 0%,#2060a0 40%,#0d3060 80%,#1a3050 100%);
+  position:relative;overflow:hidden;
+  max-width:100vw;box-sizing:border-box;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(58,144,208,.25) 0%,transparent 60%),
+             radial-gradient(ellipse at 75% 30%,rgba(255,200,80,.12) 0%,transparent 50%),
+             radial-gradient(ellipse at 80% 80%,rgba(58,170,122,.1) 0%,transparent 50%);
+  pointer-events:none;
+}
+.petal{position:absolute;opacity:.15;font-size:22px;animation:fall linear infinite;pointer-events:none;}
+@keyframes fall{0%{transform:translateY(-30px) rotate(0deg);opacity:.15;}100%{transform:translateY(110vh) rotate(400deg);opacity:0;}}
+
+.hero-left{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3.5rem 2.5rem;gap:1.8rem;position:relative;z-index:1;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.char-img-frame{
+  width:280px;height:380px;
+  border:1.5px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.05);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;border-radius:6px;cursor:pointer;overflow:hidden;
+  transition:border-color .3s;
+}
+.char-img-frame:hover{border-color:rgba(212,118,138,.6);}
+.char-img-frame::before{
+  content:'';position:absolute;top:12px;left:16px;
+}
+.char-img-frame::after{
+  content:'蒼嶺高等学校 STUDENT ID';position:absolute;bottom:0;left:0;right:0;
+  background:rgba(13,30,54,.78);color:rgba(255,255,255,.85);
+  font-size:11px;letter-spacing:.1em;text-align:center;padding:5px 0;z-index:2;
+}
+.char-img-tape{
+  position:absolute;top:-9px;right:24px;width:54px;height:20px;
+  background:rgba(232,160,32,.5);transform:rotate(8deg);
+  box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;border-radius:1px;
+}
+.img-ph{display:flex;flex-direction:column;align-items:center;gap:.8rem;}
+.img-ph svg{opacity:.2;}
+.img-ph span{font-size:17px;color:rgba(255,255,255,.25);letter-spacing:.1em;}
+.char-img-frame img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;}
+.char-img-frame.has-img img{display:block;}
+.char-img-frame.has-img .img-ph{display:none;}
+
+.hero-name-block{text-align:center;}
+.hero-name-jp{font-family:'Noto Serif JP',serif;font-size:16px;color:rgba(255,255,255,.4);letter-spacing:.15em;margin-bottom:.4rem;}
+.hero-name-kr{font-family:'Noto Serif KR',serif;font-size:1.85rem;font-weight:300;color:white;}
+
+.hero-right{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:3.5rem 4rem;position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:17px;letter-spacing:.2em;color:rgba(160,220,255,.9);text-transform:uppercase;margin-bottom:1.4rem;
+}
+.hero-badge::before{content:'';width:22px;height:1px;background:rgba(160,220,255,.9);}
+.hero-title{font-family:'Noto Serif KR',serif;font-size:2.9rem;font-weight:300;color:white;line-height:1.25;margin-bottom:.35rem;}
+.hero-title-jp{font-family:'Noto Serif JP',serif;font-size:1.3rem;color:rgba(255,255,255,.4);margin-bottom:2rem;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;}
+.hero-tag{font-size:16px;padding:4px 12px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);border-radius:4px;background:rgba(255,255,255,.04);}
+.hero-quote{
+  font-family:'Noto Serif KR',serif;font-size:1.3rem;font-weight:300;
+  color:rgba(255,255,255,.92);line-height:2;
+  border-left:2px solid rgba(100,200,255,.6);padding-left:1.4rem;margin-bottom:2.2rem;
+}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr) !important;gap:0;
+  border:1px solid rgba(255,255,255,.1);max-width:600px;overflow-x:auto;
+}
+
+.hstat{min-width:90px;padding:1rem 1.1rem;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+.hstat:last-child{border-right:none;}
+.hsl{font-size:16px;color:rgba(255,255,255,.35);letter-spacing:.05em;margin-bottom:.25rem;}
+.hsv{font-family:'Noto Serif KR',serif;font-size:16px;color:rgba(255,255,255,.82);}
+
+/* SECTION */
+.sec{max-width:1100px;margin:0 auto;padding:5.5rem 2rem;}
+.sec-full{width:100%;padding:5.5rem 0;}
+.sec-inner{max-width:1100px;margin:0 auto;padding:0 2rem;}
+.sec-head{margin-bottom:3rem;}
+.sec-num{font-family:'Noto Serif JP',serif;font-size:17px;color:var(--rose);letter-spacing:.2em;display:block;margin-bottom:.5rem;}
+.sec-title{font-family:'Noto Serif KR',serif;font-size:2.2rem;font-weight:300;color:var(--navy);padding-bottom:.9rem;position:relative;}
+.sec-title::after{content:'';position:absolute;bottom:0;left:0;width:44px;height:2px;background:linear-gradient(90deg,var(--sky),var(--mint));border-radius:2px;}
+
+/* CHAR GRID */
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;}
+.char-card{background:white;border-radius:var(--r);padding:2.2rem;box-shadow:var(--shadow);}
+.char-card h3{font-family:'Noto Serif KR',serif;font-size:1.2rem;color:var(--navy);margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);font-weight:400;}
+.char-card p{font-size:17px;color:#3a3048;line-height:1.9;margin-bottom:.9rem;}
+.char-card p:last-child{margin-bottom:0;}
+.char-likes{display:flex;flex-direction:column;gap:.7rem;}
+.likes-row{display:flex;gap:.7rem;align-items:flex-start;}
+.likes-tag{flex-shrink:0;font-size:17px;padding:3px 10px;border-radius:20px;font-weight:500;letter-spacing:.05em;white-space:nowrap;}
+.likes-tag.good{background:#f0f9f4;color:var(--mint);border:1px solid var(--mint);}
+.likes-tag.bad{background:#fdf2f4;color:var(--rose);border:1px solid var(--rose);}
+.likes-body{color:#3a3048;line-height:1.7;font-size:16px;}
+
+.signals-box{grid-column:1/-1;background:#1a4a7a;border-radius:var(--r);padding:2.4rem;box-shadow:var(--shadow);}
+.signals-box h3{font-family:'Noto Serif KR',serif;color:rgba(255,255,255,.9);font-weight:300;font-size:1.2rem;margin-bottom:1.6rem;}
+.sig-list{display:grid;grid-template-columns:1fr 1fr;gap:1rem;list-style:none;}
+.sig-list li{display:flex;gap:.9rem;align-items:flex-start;font-size:16px;color:rgba(255,255,255,.95);line-height:1.7;background:rgba(255,255,255,.07);padding:.6rem .8rem;border-radius:8px;}
+.sig-dot{width:7px;height:7px;background:var(--sky);border-radius:50%;flex-shrink:0;margin-top:7px;}
+
+/* QNA */
+.qna-wrap{display:flex;flex-direction:column;}
+.qi{border-bottom:1px solid var(--border);}
+.q-btn{
+  width:100%;background:none;border:none;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.7rem 0;font-family:'Noto Serif KR',serif;font-size:16px;
+  color:var(--navy);text-align:left;gap:1.2rem;transition:color .2s;
+}
+.q-btn:hover{color:var(--sky);}
+.q-plus{flex-shrink:0;font-size:22px;color:var(--sky);font-family:monospace;transition:transform .3s;}
+.q-ans{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.q-ans p{font-size:17px;color:#3a3048;line-height:1.95;padding-bottom:1.7rem;}
+.qi.open .q-plus{transform:rotate(45deg);}
+.qi.open .q-ans{max-height:500px;}
+
+/* TIPS */
+.tips-bg{background:linear-gradient(160deg,#0d3a6a,#1a5a8a,#0a3060);}
+.tips-intro{
+  background:rgba(212,118,138,.14);border:1px solid rgba(212,118,138,.3);
+  border-radius:var(--r);padding:2.2rem;margin-bottom:2.5rem;
+}
+.tips-intro-title{font-family:'Noto Serif KR',serif;color:rgba(160,220,255,.95);font-size:1.25rem;margin-bottom:.8rem;}
+.tips-intro-body{font-size:17px;color:rgba(255,255,255,.88);line-height:2;}
+.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);border-radius:var(--r);overflow:hidden;margin-bottom:2.5rem;}.tips-grid .tip-c[style*="grid-column"]{background:transparent!important;}
+.tip-c{background:rgba(30,51,86,.9);padding:2.2rem;position:relative;}
+.tip-n{position:absolute;top:1.2rem;right:1.5rem;font-family:'Noto Serif JP',serif;font-size:42px;color:rgba(255,255,255,.05);line-height:1;}
+.tip-bar{width:30px;height:2px;background:linear-gradient(90deg,var(--sky),var(--mint));margin-bottom:1.2rem;border-radius:2px;}
+.tip-title{font-family:'Noto Serif KR',serif;font-size:17px;color:rgba(255,255,255,.92);margin-bottom:.7rem;font-weight:400;}
+.tip-body{font-size:17px;color:rgba(255,255,255,.78);line-height:1.85;}
+
+/* SHORTCUTS */
+.sc-section{margin-top:1.5rem;}
+.sc-title{font-family:'Noto Serif KR',serif;color:rgba(255,255,255,.85);font-size:1.25rem;margin-bottom:1.4rem;font-weight:300;}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.sc-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:1.8rem;}
+.sc-cmd{font-family:monospace;font-size:16px;color:rgba(160,220,255,.95);background:rgba(58,144,208,.2);padding:5px 12px;border-radius:5px;display:inline-block;margin-bottom:.9rem;}
+.sc-name{font-size:16px;color:rgba(255,255,255,.95);margin-bottom:.5rem;font-weight:500;}
+.sc-body{font-size:17px;color:rgba(255,255,255,.78);line-height:1.8;margin-bottom:1.2rem;}
+.sc-imgs{display:grid;grid-template-columns:1fr;gap:8px;margin-top:1rem;}
+.sc-img-box{
+  background:transparent;
+  border:none;border-radius:8px;
+  overflow:hidden;
+}
+.sc-img-box img{width:100%;height:auto;display:block;border-radius:7px;}
+.sc-img-ph{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.sc-img-ph span{font-size:16px;color:rgba(255,255,255,.22);}
+
+/* TEST LOG */
+
+/* NPC */
+.npc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;}
+.npc-card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);}
+.npc-img{
+  height:220px;background:var(--bg3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;border-bottom:1px solid var(--border);cursor:pointer;overflow:hidden;
+}
+.npc-img img[src]:not([src=""])+svg,.npc-img img[src]:not([src=""])+*+.npc-img-ph{display:none !important;}
+.npc-img::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .3s;}
+.npc-img:hover::before{background:rgba(0,0,0,.08);}
+.npc-img-num{position:absolute;top:10px;left:12px;font-size:17px;color:var(--muted);letter-spacing:.1em;}
+.npc-img img[src]:not([src=""]){width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;}
+.npc-img img:not([src]):not([src=""]){display:none;}
+.npc-img.has-img img{display:block;}
+.npc-body{padding:1.6rem;}
+.npc-jp{font-family:'Noto Serif JP',serif;font-size:17px;color:var(--muted);margin-bottom:.25rem;}
+.npc-name{font-family:'Noto Serif KR',serif;font-size:1.25rem;color:var(--navy);margin-bottom:.9rem;}
+.npc-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem;}
+.npc-chip{font-size:17px;padding:3px 9px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:20px;}
+.npc-desc{font-size:17px;color:#2a2838;line-height:1.75;}
+
+/* SCHOOL */
+.school-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:2.5rem;}
+.floor-block{background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);}
+.floor-head{padding:1rem 1.4rem;background:linear-gradient(90deg,var(--navy),var(--navy2));font-family:'Noto Serif KR',serif;font-size:16px;color:rgba(255,255,255,.9);}
+.floor-row{display:grid;grid-template-columns:75px 1fr;border-bottom:1px solid var(--border);}
+.floor-row:last-child{border-bottom:none;}
+.floor-lbl{padding:.9rem 1.1rem;background:var(--bg2);font-size:16px;font-family:'Noto Serif KR',serif;color:var(--navy);border-right:1px solid var(--border);display:flex;align-items:center;}
+.floor-val{padding:.9rem 1.1rem;font-size:17px;color:var(--muted);line-height:1.55;}
+.hl{color:var(--gold);font-weight:500;}
+.space-note{background:white;border-radius:var(--r);padding:1.6rem;box-shadow:var(--shadow);font-size:16px;color:#3a3048;line-height:1.9;margin-top:1.2rem;}
+.schedule-note{font-size:17px;color:var(--muted);line-height:2;padding:1.2rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border);}
+.cal-row{display:grid;grid-template-columns:100px 1fr;}
+.cal-date{padding:.85rem .9rem;background:var(--bg2);font-size:15px;color:var(--muted);border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;min-height:64px;word-break:keep-all;line-height:1.5;}
+.cal-event{padding:.85rem .9rem;font-size:17px;color:var(--ink);border-bottom:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;min-height:64px;}
+.cal-sub{font-size:15px;color:var(--muted);margin-top:2px;}
+.cal-row:last-child .cal-date,.cal-row:last-child .cal-event{border-bottom:none;}
+
+/* TIMELINE */
+.tl-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.tl{position:relative;padding-left:2rem;}
+.tl::before{content:'';position:absolute;left:0;top:10px;bottom:0;width:1px;background:var(--border);}
+.tl-item{position:relative;padding-bottom:1.8rem;display:grid;grid-template-columns:95px 1fr;gap:1.4rem;}
+.tl-item::before{content:'';position:absolute;left:-2rem;top:8px;width:9px;height:9px;border-radius:50%;background:var(--sky);transform:translateX(50%);}
+.tl-date{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--rose);padding-top:2px;}
+.tl-event{font-family:'Noto Serif KR',serif;font-size:16px;color:var(--navy);margin-bottom:.25rem;}
+.tl-sub{font-size:17px;color:var(--muted);line-height:1.55;}
+
+/* MAP */
+.map-bg{background:var(--bg3);}
+.map-search-bar{
+  display:flex;gap:.8rem;margin-bottom:1.2rem;
+}
+.map-search-input{
+  flex:1;padding:.75rem 1.1rem;border:1px solid var(--border);border-radius:8px;
+  background:white;font-family:'Noto Sans KR',sans-serif;font-size:16px;color:var(--ink);
+  outline:none;transition:border-color .2s;
+}
+.map-search-input:focus{border-color:var(--sky);}
+.map-filter-btns{display:flex;gap:.5rem;flex-wrap:wrap;}
+.mfb{
+  padding:.55rem 1rem;font-size:16px;border:1px solid var(--border);
+  background:white;border-radius:20px;cursor:pointer;color:var(--muted);
+  transition:all .2s;white-space:nowrap;
+}
+.mfb:hover,.mfb.active{background:var(--sky);color:white;border-color:var(--sky);}
+#map-wrap{
+  width:100%;height:560px;position:relative;overflow:hidden;
+  border-radius:var(--r);box-shadow:var(--shadow);
+  cursor:grab;user-select:none;touch-action:none;
+}
+#map-wrap:active{cursor:grabbing;}
+#map-tiles{position:absolute;top:0;left:0;}
+.t-row{display:flex;}
+.t-img{width:256px;height:256px;flex-shrink:0;display:block;}
+#map-markers{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+.mk{position:absolute;transform:translate(-50%,-100%);pointer-events:all;cursor:pointer;z-index:10;}
+.mk-dot{
+  width:14px;height:14px;border-radius:50%;border:2.5px solid white;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);margin:0 auto 3px;transition:transform .15s;
+}
+.mk-dot.lg{width:18px;height:18px;}
+.mk:hover .mk-dot{transform:scale(1.35);}
+.mk-label{
+  font-size:17px;white-space:nowrap;background:rgba(255,255,255,.94);
+  padding:2px 7px;border-radius:4px;color:var(--navy);
+  box-shadow:0 1px 5px rgba(0,0,0,.15);text-align:center;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.map-popup{
+  position:absolute;background:white;border-radius:10px;
+  padding:1.1rem 1.3rem;z-index:20;
+  min-width:200px;max-width:280px;
+  box-shadow:0 6px 24px rgba(0,0,0,.15);
+  transform:translate(-50%,calc(-100% - 26px));
+  pointer-events:none;opacity:0;transition:opacity .2s;
+}
+.map-popup.vis{opacity:1;}
+.mp-kr{font-family:'Noto Serif KR',serif;font-size:16px;color:var(--navy);font-weight:400;margin-bottom:.2rem;}
+.mp-jp{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--muted);margin-bottom:.15rem;}
+.mp-rom{font-size:17px;color:var(--muted);font-style:italic;margin-bottom:.5rem;}
+.mp-desc{font-size:16px;color:#3a3048;line-height:1.65;}
+.map-ctrl{position:absolute;bottom:14px;right:14px;z-index:30;display:flex;flex-direction:column;gap:3px;}
+.mc{
+  width:34px;height:34px;background:white;border:1px solid var(--border);
+  cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;
+  color:var(--navy);border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:background .15s;
+}
+.mc:hover{background:var(--bg2);}
+.map-credit{position:absolute;bottom:6px;left:10px;font-size:16px;color:rgba(0,0,0,.4);z-index:20;}
+.search-results{
+  background:white;border:1px solid var(--border);border-radius:10px;
+  box-shadow:var(--shadow);max-height:320px;overflow-y:auto;
+  position:relative;z-index:50;margin-bottom:1rem;
+}
+.sr-item{
+  display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;
+  border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;
+}
+.sr-item:last-child{border-bottom:none;}
+.sr-item:hover{background:var(--bg2);}
+.sr-dot{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.7);flex-shrink:0;margin-top:3px;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.sr-info{}
+.sr-kr{font-size:16px;color:var(--navy);font-family:'Noto Serif KR',serif;}
+.sr-jp{font-size:17px;color:var(--muted);font-family:'Noto Serif JP',serif;}
+.sr-desc{font-size:16px;color:var(--muted);line-height:1.5;margin-top:.2rem;}
+.map-legend{display:flex;flex-wrap:wrap;gap:1.3rem;margin-top:1.2rem;}
+.ml-item{display:flex;align-items:center;gap:.45rem;font-size:17px;color:var(--ink);font-weight:500;}
+.ml-dot{width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.8);flex-shrink:0;}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;
+  display:none;align-items:center;justify-content:center;padding:2rem;
+}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90%;max-height:90vh;border-radius:8px;object-fit:contain;}
+.lightbox-close{
+  position:absolute;top:1.5rem;right:1.5rem;
+  width:44px;height:44px;background:rgba(255,255,255,.1);
+  border:none;color:white;font-size:24px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.lightbox-close:hover{background:rgba(255,255,255,.2);}
+
+/* NOTE */
+.note-wrap{max-width:720px;margin:0 auto;}
+.note-quote{
+  font-family:'Noto Serif KR',serif;font-size:1.3rem;font-weight:300;
+  color:var(--navy);line-height:2;padding:2.5rem 2.5rem 2.5rem 4rem;
+  background:white;border-radius:var(--r);box-shadow:var(--shadow);
+  position:relative;margin-bottom:2rem;
+}
+.note-quote::before{content:'"';font-size:6rem;color:var(--sky);opacity:.18;position:absolute;top:-8px;left:1.2rem;font-family:Georgia,serif;line-height:1;}
+.note-body{font-size:17px;color:#3a3048;line-height:2;margin-bottom:1rem;}
+.note-sign{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--sky);text-align:right;margin-top:1.8rem;}
+
+footer{background:var(--navy);padding:2rem;text-align:center;font-size:17px;color:rgba(255,255,255,.3);letter-spacing:.12em;}
+
+/* ===== WORLD HERO ===== */
+.world-hero{
+  min-height:48vh;padding-top:54px;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 10%,rgba(255,255,255,.9) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 88% 75%,rgba(180,225,180,.35) 0%,transparent 60%),
+    linear-gradient(160deg,#eaf6ff 0%,#dcf0fb 35%,#cdeaf5 65%,#bfe0e8 100%);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.wh-sparkle{
+  position:absolute;color:rgba(120,180,210,.55);font-size:13px;
+  animation:wh-twinkle ease-in-out infinite;
+}
+@keyframes wh-twinkle{0%,100%{opacity:.15;transform:scale(.8);}50%{opacity:.85;transform:scale(1.15);}}
+.world-hero-inner{position:relative;z-index:1;text-align:center;padding:3.2rem 2rem;}
+.wh-school{font-family:monospace;font-size:12px;color:rgba(40,90,120,.5);letter-spacing:.25em;margin-bottom:1.4rem;}
+.wh-title{font-family:'Noto Serif JP',serif;font-size:3.2rem;font-weight:300;color:#1d5a7a;margin-bottom:.3rem;letter-spacing:.12em;}
+.wh-title-kr{font-family:'Noto Serif KR',serif;font-size:1.1rem;color:rgba(40,90,120,.5);margin-bottom:1.8rem;letter-spacing:.2em;}
+.wh-desc{font-family:'Noto Serif KR',serif;font-size:1.1rem;color:#2a5468;line-height:2.15;font-weight:300;}
+
+/* ===== CMAIN - Equal Character Cards ===== */
+.cmain-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.cmain-card{background:white;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;}
+.cmain-photo-wrap{position:relative;height:300px;overflow:hidden;flex-shrink:0;cursor:pointer;}
+.cmain-photo-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.cmain-photo-wrap:hover img{transform:scale(1.04);}
+.cmain-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(13,30,54,.9),transparent);
+  padding:2rem 1.3rem 1rem;
+}
+.cmain-jp{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,.52);margin-bottom:.2rem;}
+.cmain-kr{font-family:'Noto Serif KR',serif;font-size:1.3rem;color:white;font-weight:400;}
+.cmain-body{padding:1.5rem;flex:1;display:flex;flex-direction:column;gap:1rem;}
+.cmain-desc{font-size:16px;color:#2a3a4a;line-height:1.85;background:var(--bg);border-radius:8px;padding:.9rem 1rem;border-left:2px solid var(--sky);}
+.cmain-likes{display:flex;flex-direction:column;gap:.45rem;}
+.cmain-likes-row{display:flex;gap:.5rem;align-items:flex-start;font-size:15px;}
+.cmain-likes-lbl{flex-shrink:0;font-size:12px;padding:2px 7px;border-radius:20px;font-weight:500;margin-top:2px;white-space:nowrap;}
+.cmain-likes-lbl.good{background:#f0f9f4;color:var(--mint);border:1px solid var(--mint);}
+.cmain-likes-lbl.bad{background:#fdf2f4;color:var(--rose);border:1px solid var(--rose);}
+.cmain-likes-val{color:#3a4a5a;line-height:1.6;}
+.cmain-signal-wrap{background:var(--bg2);border-radius:8px;padding:.95rem 1.1rem;}
+.cmain-signal-lbl{font-size:11px;color:var(--sky);letter-spacing:.1em;margin-bottom:.55rem;background:rgba(58,144,208,.12);border-radius:20px;padding:2px 9px;display:inline-block;}
+.cmain-signal-item{font-size:15px;color:var(--navy);border-left:2px solid var(--sky);padding:.35rem .75rem;margin-bottom:.3rem;background:white;border-radius:0 5px 5px 0;line-height:1.5;}
+.cmain-signal-item:last-child{margin-bottom:0;}
+.cmain-romance{background:var(--bg2);border-radius:8px;padding:.95rem 1.1rem;}
+.cmain-romance-lbl{font-size:12px;color:var(--muted);letter-spacing:.08em;margin-bottom:.6rem;display:block;}
+.cmain-romance-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-bottom:.7rem;}
+.cmain-romance-item{background:white;border-radius:5px;padding:.5rem .75rem;font-size:14px;color:#2a3a4a;line-height:1.6;}
+
+@media(max-width:960px){
+  .cmain-grid{grid-template-columns:1fr;}
+}
+@media(max-width:560px){
+  .wh-title{font-size:2.2rem;}
+  .cmain-photo-wrap{height:240px;}
+  .cmain-romance-grid{grid-template-columns:1fr;}
+}
+.cast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+.cast-card{background:white;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;}
+.cast-id-bar{background:linear-gradient(90deg,var(--navy),var(--navy2));padding:.6rem 1.1rem;display:flex;justify-content:space-between;align-items:center;}
+.cast-school-lbl{font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.12em;}
+.cast-id-num{font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.1em;}
+.cast-body{display:flex;gap:1rem;padding:1.3rem;border-bottom:1px solid var(--border);}
+.cast-photo{width:80px;flex-shrink:0;cursor:pointer;}
+.cast-photo img{width:80px;height:104px;object-fit:cover;border-radius:4px;border:1px solid var(--border);display:block;}
+.cast-photo-jp{font-family:'Noto Serif JP',serif;font-size:12px;color:var(--muted);text-align:center;margin-top:.3rem;letter-spacing:.05em;}
+.cast-detail{flex:1;min-width:0;}
+.cast-name-kr{font-family:'Noto Serif KR',serif;font-size:1.05rem;color:var(--navy);margin-bottom:.45rem;font-weight:400;}
+.cc-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.6rem;}
+.cc-chip{font-size:13px;padding:2px 8px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:20px;white-space:nowrap;}
+.cast-desc{font-size:15px;color:#2a3a4a;line-height:1.7;}
+.cast-psyche{padding:.85rem 1.3rem;background:#faf8f4;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:.4rem;}
+.psyche-quote{
+  font-family:'Noto Serif KR',serif;font-size:15.5px;font-weight:300;
+  color:#3a4a5a;line-height:2;letter-spacing:.01em;
+  border-left:2px solid var(--border);padding-left:1rem;
+}
+.cast-spoiler-wrap{padding:.85rem 1.3rem;margin-top:auto;}
+.spoiler-btn{width:100%;background:rgba(26,42,58,.04);border:1.5px dashed rgba(26,42,58,.18);border-radius:6px;padding:.6rem .9rem;font-size:14px;color:var(--muted);cursor:pointer;text-align:left;transition:all .2s;display:flex;align-items:center;gap:.5rem;font-family:'Noto Sans KR',sans-serif;}
+.spoiler-btn:hover{border-color:var(--sky);color:var(--sky);}
+.spoiler-btn.open{border-color:var(--sky);color:var(--sky);background:rgba(58,144,208,.05);}
+.spoiler-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.spoiler-body.open{max-height:400px;}
+.spoiler-body p{font-size:15px;color:#2a3a4a;line-height:1.9;padding:.85rem 0 .2rem;}
+
+/* 유즈키 psyche 섹션 */
+.yui-psyche{background:var(--navy);border-radius:var(--r);padding:1.6rem 2rem;margin-bottom:1.8rem;display:flex;flex-wrap:wrap;gap:.7rem 2rem;}
+.yp-item{display:flex;gap:.55rem;align-items:flex-start;}
+.yp-label{font-size:12px;padding:2px 9px;border-radius:20px;flex-shrink:0;margin-top:2px;font-weight:500;letter-spacing:.03em;}
+.yp-label.fear{background:rgba(224,112,96,.2);color:#f4a090;border:1px solid rgba(224,112,96,.4);}
+.yp-label.need{background:rgba(58,170,122,.2);color:#6adaaa;border:1px solid rgba(58,170,122,.4);}
+.yp-label.line{background:rgba(232,160,32,.2);color:#f4cc70;border:1px solid rgba(232,160,32,.4);}
+.yp-val{font-size:16px;color:rgba(255,255,255,.85);line-height:1.6;}
+
+/* 유즈키 서사 spoiler */
+.yui-spoiler{background:white;border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:1.8rem;overflow:hidden;}
+.yui-spoiler-btn{width:100%;background:var(--bg);border:none;border-bottom:1px solid var(--border);padding:1.2rem 2rem;font-family:'Noto Serif KR',serif;font-size:1rem;color:var(--navy);cursor:pointer;text-align:left;display:flex;align-items:center;gap:.6rem;transition:background .2s;}
+.yui-spoiler-btn:hover{background:var(--bg2);}
+.yui-spoiler-btn.open{background:var(--bg2);}
+.yui-spoiler-content{max-height:0;overflow:hidden;transition:max-height .5s ease;}
+.yui-spoiler-content.open{max-height:800px;}
+.yui-spoiler-content .inner{padding:2rem 2.2rem;}
+
+/* TIPS REDESIGN */
+.tips-sc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2.5rem;}
+.tips-sc-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:1.6rem;}
+.tsc-cmd{font-family:monospace;font-size:16px;color:rgba(160,220,255,.95);background:rgba(58,144,208,.25);padding:4px 11px;border-radius:5px;display:inline-block;margin-bottom:.7rem;letter-spacing:.03em;}
+.tsc-name{font-size:15px;color:rgba(255,255,255,.9);margin-bottom:.4rem;font-weight:500;}
+.tsc-body{font-size:15px;color:rgba(255,255,255,.68);line-height:1.7;}
+.tsc-example{font-family:monospace;font-size:14px;color:rgba(255,255,255,.88);background:rgba(255,255,255,.1);border-left:2px solid rgba(160,220,255,.7);padding:.45rem .75rem;border-radius:0 4px 4px 0;margin-top:.55rem;display:block;}
+.tip-cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+.tip-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:1.3rem 1.5rem;}
+.tip-card-num{font-family:'Noto Serif JP',serif;font-size:11px;color:rgba(255,255,255,.28);letter-spacing:.12em;margin-bottom:.35rem;}
+.tip-card-title{font-size:15px;color:rgba(255,255,255,.88);font-weight:500;margin-bottom:.4rem;}
+.tip-card-body{font-size:14px;color:rgba(255,255,255,.65);line-height:1.7;}
+
+@media(max-width:960px){
+  .cast-grid{grid-template-columns:1fr 1fr;}
+  .tips-sc-grid{grid-template-columns:1fr 1fr;}
+  .tip-cards-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  .cast-grid{grid-template-columns:1fr;}
+  .tips-sc-grid{grid-template-columns:1fr;}
+  .tip-cards-grid{grid-template-columns:1fr 1fr;}
+  .yui-psyche{padding:1.2rem 1.4rem;gap:.6rem 1.2rem;}
+  .yp-val{font-size:15px;}
+}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;}
+  .hero-left{min-height:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:2.5rem 1.5rem;}
+  .hero-right{padding:2rem 1.2rem;overflow-x:hidden;box-sizing:border-box;}
+  .char-grid{grid-template-columns:1fr;}
+  .sig-list{grid-template-columns:1fr;}
+  .tips-grid{grid-template-columns:1fr 1fr;}
+  .sc-grid{grid-template-columns:1fr;}
+  .npc-grid{grid-template-columns:1fr 1fr;}
+  .school-grid{grid-template-columns:1fr;}
+  .tl-grid{grid-template-columns:1fr;}
+    .map-filter-btns{display:none;}
+  .mob-stack{grid-template-columns:1fr !important;}
+}
+@media(max-width:560px){
+  body{font-size:16px;}
+  .sec{padding:3rem 1.2rem;}
+  .sec-inner{padding:0 1.2rem;}
+  .hero-title{font-size:1.8rem;}
+  .hero-title-jp{font-size:1rem;}
+  .hero-quote{font-size:1rem;padding-left:1rem;}
+  .hero-tags{gap:.4rem;}
+  .hero-tag{font-size:13px;padding:3px 9px;}
+  .hero-badge{font-size:14px;}
+  .char-img-frame{width:220px;height:300px;}
+  .tips-grid{grid-template-columns:1fr;}
+  .npc-grid{grid-template-columns:1fr;}
+  #map-wrap{height:420px;}
+    #bgm-player{bottom:16px;right:16px;}
+  #bgm-bar{width:calc(100vw - 48px);max-width:230px;}
+  .mob-stack{grid-template-columns:1fr !important;}
+  .mob-stack .mob-arrow{display:none !important;}
+  .mob-hide{display:none !important;}
+  .char-card{padding:1.5rem !important;}
+  .char-card h3{font-size:1.05rem !important;}
+  .char-card p{font-size:15px !important;}
+  .sec *{overflow-wrap:break-word;word-break:keep-all;}
+  [style*="padding:2.4rem"]{padding:1.4rem !important;}
+  [style*="padding:2rem 2.2rem"]{padding:1.4rem !important;}
+}
+
+.gal-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:12px;
+}
+.gal-item {
+  position:relative; border-radius:12px; overflow:hidden;
+  cursor:pointer; aspect-ratio:3/2;
+  background:var(--bg2);
+  transition:transform .2s, box-shadow .2s;
+}
+.gal-item:hover { transform:scale(1.03); box-shadow:0 6px 20px rgba(0,0,0,.12); }
+.gal-item img {
+  width:100%; height:100%; object-fit:cover;
+  display:block;
+}
+.gal-label {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:6px 8px;
+  background:linear-gradient(transparent,rgba(0,0,0,.55));
+  color:#fff; font-size:17px; text-align:center;
+}
+
+nav .nav-links a { transition:color .15s; padding-bottom:2px; }
+nav .nav-links a.active { color:var(--sky) !important; border-bottom:2px solid var(--sky); }
+
+/* ===== PAGE SYSTEM ===== */
+.page { display:none !important; }
+.page.active { display:block !important; }
+
+/* NAV 원복 */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:rgba(244,249,255,0.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+  overflow:visible;
+}
+.nav-brand { font-size:17px;font-weight:600;color:var(--navy);white-space:nowrap; }
+.nav-links { display:flex;gap:1.4rem;list-style:none; }
+.nav-links a { font-size:16px;color:var(--muted);text-decoration:none;white-space:nowrap; transition:color .15s; }
+.nav-links a:hover, .nav-links a.active { color:var(--sky); }
+.nav-links a.active { border-bottom:2px solid var(--sky); }
+
+/* 햄버거 버튼 */
+.hamburger {
+  display:none; flex-direction:column; gap:5px;
+  background:none; border:none; cursor:pointer; padding:4px;
+}
+.hamburger span { display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:.3s; }
+
+/* 모바일 메뉴 */
+@media(max-width:768px) {
+  .hamburger { display:flex; }
+  .nav-links {
+    display:none !important;
+    position:fixed; top:54px; left:0; right:0;
+    background:rgba(244,249,255,0.98);backdrop-filter:blur(12px);
+    flex-direction:column; gap:0; border-bottom:1px solid var(--border);
+    z-index:499; padding:.5rem 0;
+  }
+  .nav-links.open { display:flex !important; }
+  .nav-links li a { display:block;padding:.7rem 2rem;font-size:18px; }
+}
+
+/* 다음 탭 버튼 */
+.next-page-btn {
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  margin:3rem auto 2rem;
+  padding:.8rem 2rem;
+  background:transparent;
+  border:1.5px solid var(--border);
+  border-radius:40px;
+  color:var(--muted); font-size:16px;
+  cursor:pointer; transition:all .2s;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.next-page-btn:hover { border-color:var(--sky);color:var(--sky); }
+.next-page-btn svg { width:16px;height:16px;opacity:.6; }
+
+/* 모바일 달력·히어로 픽스 */
+@media(max-width:768px){
+  /* 달력 3열 → 1열 */
+  #pg-timeline .sec > div[style*="grid-template-columns:repeat(3"],
+  #timeline > div[style*="grid-template-columns:repeat(3"]{
+    grid-template-columns:1fr !important;
+  }
+  /* hero-right 잘림 방지 */
+  .hero-right{
+    padding:1.5rem 1.2rem !important;
+    overflow-x:hidden !important;
+    max-width:100vw !important;
+    box-sizing:border-box !important;
+  }
+  .hero-right > *{
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+  .hero-quote{
+    font-size:.95rem !important;
+    line-height:1.9 !important;
+    word-break:keep-all !important;
+  }
+  .hero-stats{
+    grid-template-columns:repeat(2,1fr) !important;
+    overflow-x:hidden !important;
+  }
+  .hero-tags{
+    flex-wrap:wrap !important;
+  }
+  /* cal-row 날짜 칸 너비 축소 */
+  .cal-row{grid-template-columns:72px 1fr !important;}
+  .cal-date{font-size:13px !important;padding:.6rem .5rem !important;}
+  .cal-event{font-size:14px !important;padding:.6rem .7rem !important;}
+}
+
+/* ===== CHAR SECTIONS - full-width vertical scroll ===== */
+.char-section{background:white;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:2.5rem;}
+.char-sec-id-bar{background:linear-gradient(90deg,var(--navy),var(--navy2));padding:.65rem 1.4rem;display:flex;justify-content:space-between;align-items:center;}
+.char-sec-school{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,.58);letter-spacing:.12em;}
+.char-sec-num{font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,.38);letter-spacing:.1em;}
+.char-sec-main{display:grid;grid-template-columns:360px 1fr;}
+.char-sec-photo{position:relative;overflow:hidden;cursor:pointer;background:#e8f0f8;}
+.char-sec-photo img{width:100%;height:100%;object-fit:cover;min-height:420px;display:block;transition:transform .4s;}
+.char-sec-photo:hover img{transform:scale(1.03);}
+.char-sec-photo-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(13,30,54,.88) 0%,rgba(13,30,54,.3) 50%,transparent 100%);padding:2.5rem 1.4rem 1.3rem;}
+.char-sec-jp{font-family:'Noto Serif JP',serif;font-size:14px;color:rgba(255,255,255,.52);margin-bottom:.25rem;}
+.char-sec-kr{font-family:'Noto Serif KR',serif;font-size:1.5rem;color:white;font-weight:400;}
+.char-sec-info{padding:1.8rem 2.2rem;display:flex;flex-direction:column;gap:1.1rem;}
+.char-sec-desc{font-size:16px;color:#2a3a4a;line-height:1.9;background:var(--bg);border-radius:8px;padding:.95rem 1.1rem;border-left:2.5px solid var(--sky);}
+.char-sec-likes{display:flex;flex-direction:column;gap:.55rem;}
+.char-sec-like-row{display:flex;gap:.55rem;align-items:baseline;font-size:15px;line-height:1.7;}
+.char-sec-like-lbl{flex-shrink:0;font-size:12px;padding:2px 8px;border-radius:20px;font-weight:500;white-space:nowrap;align-self:flex-start;margin-top:2px;}
+.char-sec-like-lbl.good{background:#f0f9f4;color:var(--mint);border:1px solid var(--mint);}
+.char-sec-like-lbl.bad{background:#fdf2f4;color:var(--rose);border:1px solid var(--rose);}
+.char-sec-like-val{color:#3a4a5a;}
+.char-sec-psyche{background:#faf8f4;border-radius:8px;padding:1.1rem 1.3rem;}
+.char-sec-spoiler{border-top:1px solid var(--border);}
+.char-sec-sp-btn{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:.6rem;padding:1rem 1.5rem;font-size:15px;color:var(--muted);text-align:left;transition:background .2s;font-family:'Noto Sans KR',sans-serif;}
+.char-sec-sp-btn:hover{background:var(--bg);}
+.char-sec-sp-btn.open{background:var(--bg);color:var(--sky);}
+.char-sec-sp-body{max-height:0;overflow:hidden;transition:max-height .5s ease;}
+.char-sec-sp-body.open{max-height:1500px;}
+.char-sec-sp-inner{padding:1.5rem 2rem 2rem;}
+.char-sec-extra-lbl{font-size:12px;letter-spacing:.08em;color:var(--muted);margin-bottom:.6rem;display:block;}
+.char-sec-signal-wrap{background:var(--bg2);border-radius:8px;padding:.9rem 1.1rem;margin-bottom:1rem;}
+.char-sec-signal-lbl{font-size:11px;color:var(--sky);letter-spacing:.1em;margin-bottom:.55rem;background:rgba(58,144,208,.12);border-radius:20px;padding:2px 9px;display:inline-block;}
+.char-sec-signal-item{font-size:15px;color:var(--navy);border-left:2px solid var(--sky);padding:.35rem .75rem;margin-bottom:.3rem;background:white;border-radius:0 5px 5px 0;line-height:1.5;}
+.char-sec-signal-item:last-child{margin-bottom:0;}
+.char-sec-romance{background:var(--bg2);border-radius:8px;padding:.9rem 1.1rem;}
+.char-sec-romance-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-bottom:.7rem;}
+.char-sec-romance-item{background:white;border-radius:5px;padding:.5rem .75rem;font-size:14px;color:#2a3a4a;line-height:1.6;}
+@media(max-width:960px){
+  .char-sec-main{grid-template-columns:1fr;}
+  .char-sec-photo img{min-height:300px;max-height:360px;}
+}
+@media(max-width:560px){
+  .char-sec-info{padding:1.3rem;}
+  .char-sec-photo img{min-height:240px;}
+  .char-sec-kr{font-size:1.25rem;}
+  .char-sec-romance-grid{grid-template-columns:1fr;}
+  .char-sec-sp-inner{padding:1.2rem 1.2rem 1.5rem;}
+}
+</style>
+</head>
+<body onload="showPage('pg-profile')">
+
+<nav>
+  <span class="nav-brand">氷室結月 · World Guide</span>
+  <ul class="nav-links" id="nav-menu">
+    <li><a href="#" onclick="showPage('pg-profile');closeMenu();return false;">프로필</a></li>
+    <li><a href="#" onclick="showPage('pg-tips');closeMenu();return false;">플레이팁</a></li>
+    <li><a href="#" onclick="showPage('pg-gallery');closeMenu();return false;">갤러리</a></li>
+    <li><a href="#" onclick="showPage('pg-school');closeMenu();return false;">학교</a></li>
+    <li><a href="#" onclick="showPage('pg-timeline');closeMenu();return false;">달력</a></li>
+    <li><a href="#" onclick="showPage('pg-map');closeMenu();return false;">지도</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="page active" id="pg-profile">
+
+<!-- WORLD HERO -->
+<div class="world-hero">
+  <span class="wh-sparkle" style="left:6%;top:18%;animation-duration:6s;animation-delay:0s;">✦</span>
+  <span class="wh-sparkle" style="left:88%;top:24%;animation-duration:7.5s;animation-delay:1.2s;">✦</span>
+  <span class="wh-sparkle" style="left:14%;top:62%;animation-duration:5.5s;animation-delay:2.4s;">✦</span>
+  <span class="wh-sparkle" style="left:80%;top:68%;animation-duration:8s;animation-delay:.6s;">✦</span>
+  <span class="wh-sparkle" style="left:50%;top:12%;animation-duration:6.8s;animation-delay:3s;">✦</span>
+  <div class="world-hero-inner">
+    <div class="wh-school">蒼嶺高等学校 ・ 2019</div>
+    <h1 class="wh-title">蒼嶺の翔</h1>
+    <p class="wh-title-kr">소레이노카케</p>
+    <p class="wh-desc">거대한 사건도, 운명적인 만남도 없다.<br>그저 같은 학교를 오가는 동안,<br>다들 저마다의 방식으로 숨기고 있던 얼굴을 마주치게 되는 이야기.</p>
+  </div>
+</div>
+
+<!-- 등장인물 · 세로 스크롤 -->
+<section class="sec" id="chars">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">등장인물</h2></div>
+
+  <!-- ─── 히무로 유즈키 ─── -->
+  <div class="char-section">
+    <div class="char-sec-id-bar">
+      <span class="char-sec-school">蒼嶺高等学校</span>
+      <span class="char-sec-num">STUDENT ID</span>
+    </div>
+    <div class="char-sec-main">
+      <div class="char-sec-photo" onclick="openLightbox(this.querySelector('img'))">
+        <img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%9C%A0%EC%A6%88%ED%82%A4.png" alt="히무로 유즈키">
+        <div class="char-sec-photo-overlay">
+          <div class="char-sec-jp">氷室結月</div>
+          <div class="char-sec-kr">히무로 유즈키</div>
+        </div>
+      </div>
+      <div class="char-sec-info">
+        <div class="cc-chips">
+          <span class="cc-chip">19세 · 2000년생</span>
+          <span class="cc-chip">고3 · 3-1반</span>
+          <span class="cc-chip">학생회장</span>
+          <span class="cc-chip">168cm</span>
+          <span class="cc-chip">INTJ · A형</span>
+        </div>
+        <p class="char-sec-desc">아무도 속을 모른다. 그리고 그 자신도, 그어둔 선이 흔들리기 시작했다는 걸 인정하지 않으려 한다.</p>
+        <div class="char-sec-likes">
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl good">좋아하는 것</span>
+            <span class="char-sec-like-val">필름 카메라 · 재즈 · 비 오는 날 · 이른 아침 · 편의점 오뎅</span>
+          </div>
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl bad">싫어하는 것</span>
+            <span class="char-sec-like-val">갑작스러운 질문 · 예고 없는 방문 · 사람 많은 곳 · 과거 언급</span>
+          </div>
+        </div>
+        <div class="char-sec-psyche">
+          <p class="psyche-quote">가치 없는 존재가 되는 게 가장 무섭다. 그래서 흠잡을 데 없는 사람이려 애쓴다.<br>먼저 빠지지 말 것, 기대하지 않을 것. 스스로에게 그어둔 선이다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="char-sec-spoiler">
+      <button class="char-sec-sp-btn" onclick="toggleSpoiler(this)">🔒 서사 · 스포일러 포함</button>
+      <div class="char-sec-sp-body">
+        <div class="char-sec-sp-inner">
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">유저 한정 신호</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">말이 필요 이상으로 짧아지는 순간이 있다. 떠나려다가 한마디를 더 해버리기도 한다. 다른 사람 이야기를 들을 땐 표정이 잠깐 굳었다가 바로 풀리고, 아무 이유 없이 같은 공간에 나타난다. 본인은 그 신호들을 인정하지 않으려 한다.</p>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">중학교 때의 유즈키</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">안경을 쓰고 앞머리가 길었던 시절이 있었다. 조용하고 수줍음이 많았고, 좋아하는 사람을 위해 뭐든 해줬다. 고백을 앞둔 어느 날, 자신이 그저 이용당하고 있었다는 걸 알게 됐다. 그 한마디가 모든 걸 바꿨다. 외모도, 성적도, 말투도. 다시는 그런 존재가 되지 않으려고.</p>
+          </div>
+          <div>
+            <span class="char-sec-extra-lbl">연애를 시작하면</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">연락을 잘하고 사소한 것까지 기억한다. 상대가 뭘 원하는지 먼저 알아채고, 티 안 나게 챙긴다. 한 번 마음을 주면 쉽게 변하지 않는다. 겉으로는 조용하고 담백하지만, 속으로는 누구보다 깊고 따뜻한 사람.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 타치바나 아카리 ─── -->
+  <div class="char-section">
+    <div class="char-sec-id-bar">
+      <span class="char-sec-school">蒼嶺高等学校</span>
+      <span class="char-sec-num">STUDENT ID</span>
+    </div>
+    <div class="char-sec-main">
+      <div class="char-sec-photo" onclick="openLightbox(this.querySelector('img'))">
+        <img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%95%84%EC%B9%B4%EB%A6%AC.png" alt="타치바나 아카리">
+        <div class="char-sec-photo-overlay">
+          <div class="char-sec-jp">橘朱里</div>
+          <div class="char-sec-kr">타치바나 아카리</div>
+        </div>
+      </div>
+      <div class="char-sec-info">
+        <div class="cc-chips">
+          <span class="cc-chip">19세 · 2000년생</span>
+          <span class="cc-chip">고3 · 3-4반</span>
+          <span class="cc-chip">소프트볼부 주장</span>
+          <span class="cc-chip">167cm</span>
+        </div>
+        <p class="char-sec-desc">밝음이 습관이자 방어막. 집에 들어가는 걸 미루기 위해 밖에서 밝게 있는 사람.</p>
+        <div class="char-sec-likes">
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl good">좋아하는 것</span>
+            <span class="char-sec-like-val">야구 중계 · 탄산음료 · 시끌벅적한 분위기 · 야식</span>
+          </div>
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl bad">싫어하는 것</span>
+            <span class="char-sec-like-val">조용한 집 · 혼자 밥 먹는 것 · 긴 침묵</span>
+          </div>
+        </div>
+        <div class="char-sec-psyche">
+          <p class="psyche-quote">꾸미지 않은 본래 모습을 보이는 게 가장 무섭다.<br>있는 그대로를 사랑받는 것. 한 번도 가져본 적 없는 것.</p>
+        </div>
+      </div>
+    </div>
+    <div class="char-sec-spoiler">
+      <button class="char-sec-sp-btn" onclick="toggleSpoiler(this)">🔒 서사 · 스포일러 포함</button>
+      <div class="char-sec-sp-body">
+        <div class="char-sec-sp-inner">
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">집이라는 공간</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">어머니는 어릴 때 돌아가셨다. 아버지는 살아남기 위해 일했고, 그만큼 감정을 나눌 여유는 없었다. 집에는 온기가 없었다. 소프트볼이 끝나도 곧장 집으로 가지 않는다. 편의점이든, 친구 집이든, 이유를 만들어 밖에 있는다. 밝음은 그 집에 들어가는 시간을 미루는 방법이었고, 어느새 습관이자 방어막이 되었다.</p>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">유즈키라는 예외</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">고1 첫날, 먼저 말을 건 건 아카리였다. 유즈키의 긴장한 티를 읽었지만 캐묻지 않고 그냥 옆에 있어줬다. 서로에게 그어둔 선이 있다는 걸 알면서도 모르는 척한다. 유즈키를 친구라 부르는 데 한 번도 망설인 적 없다.</p>
+          </div>
+          <div>
+            <span class="char-sec-extra-lbl">본모습을 보이면</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">연애는 여러 번 했지만 전부 오래가지 못했다. 누군가와 사귀면 감정을 차단하고 진짜 모습을 보여주지 않았다. 이유는 본인도 몰랐다. 꾸미지 않은 모습을 보이면 사랑받지 못할까봐 겁이 났던 것뿐이라는 걸, 아직 스스로 깨닫지 못했다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 오카모토 사야 ─── -->
+  <div class="char-section">
+    <div class="char-sec-id-bar">
+      <span class="char-sec-school">蒼嶺高等学校</span>
+      <span class="char-sec-num">STUDENT ID</span>
+    </div>
+    <div class="char-sec-main">
+      <div class="char-sec-photo" onclick="openLightbox(this.querySelector('img'))">
+        <img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%82%AC%EC%95%BC.png" alt="오카모토 사야">
+        <div class="char-sec-photo-overlay">
+          <div class="char-sec-jp">岡本紗夜</div>
+          <div class="char-sec-kr">오카모토 사야</div>
+        </div>
+      </div>
+      <div class="char-sec-info">
+        <div class="cc-chips">
+          <span class="cc-chip">19세 · 2000년생</span>
+          <span class="cc-chip">고3 · 3-1반</span>
+          <span class="cc-chip">도서위원회</span>
+          <span class="cc-chip">161cm</span>
+        </div>
+        <p class="char-sec-desc">항상 배경이었다. 누구에게도 제대로 보인 적 없는 사람. 처음으로 자기가 원하는 걸 말하는 것.</p>
+        <div class="char-sec-likes">
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl good">좋아하는 것</span>
+            <span class="char-sec-like-val">책 · 도서관 · 창가 자리</span>
+          </div>
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl bad">싫어하는 것</span>
+            <span class="char-sec-like-val">무리 중심에 서는 것 · 갑자기 소개받는 상황</span>
+          </div>
+        </div>
+        <div class="char-sec-psyche">
+          <p class="psyche-quote">다시 아무도 모르는 사람으로 돌아가는 게 가장 무섭다.<br>한 번이라도 제대로 보였던 그 순간이, 사야에게는 전부였다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="char-sec-spoiler">
+      <button class="char-sec-sp-btn" onclick="toggleSpoiler(this)">🔒 서사 · 스포일러 포함</button>
+      <div class="char-sec-sp-body">
+        <div class="char-sec-sp-inner">
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">잊지 못한 순간</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">학교에서 유저와 처음으로 제대로 눈이 마주친 순간이 있었다. 유저가 정말로 의식하고 본 건지는 중요하지 않다. 사야에게는 그게 전부였다.</p>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">이름 붙일 수 없는 감정</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">유저에게 느끼는 감정을 사야 본인도 모른다. 연애도 사랑도 아니다. 처음으로 자신을 알아봐준 것 같았던 그 기억에서 비롯된 것. 그 사람이 다른 곳으로 가버리는 게 두려운 것에 더 가깝다.</p>
+          </div>
+          <div>
+            <span class="char-sec-extra-lbl">유즈키가 다가갈 때</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">유즈키가 유저에게 다가가는 걸 보면 불안해진다. 뺏길까봐. 평소와는 완전히 반대로, 서툴게 먼저 다가가거나 빤히 보다가 눈이 마주치면 도망친다. 처음으로 자기가 원하는 걸 직접 말하는 것. 사야에게는 그게 가장 어려운 일이다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 아사쿠라 토카 ─── -->
+  <div class="char-section">
+    <div class="char-sec-id-bar">
+      <span class="char-sec-school">蒼嶺高等学校</span>
+      <span class="char-sec-num">STUDENT ID</span>
+    </div>
+    <div class="char-sec-main">
+      <div class="char-sec-photo" onclick="openLightbox(this.querySelector('img'))">
+        <img src="https://raw.githubusercontent.com/snowbls/hh/main/%ED%86%A0%EC%B9%B4.png" alt="아사쿠라 토카">
+        <div class="char-sec-photo-overlay">
+          <div class="char-sec-jp">朝倉冬花</div>
+          <div class="char-sec-kr">아사쿠라 토카</div>
+        </div>
+      </div>
+      <div class="char-sec-info">
+        <div class="cc-chips">
+          <span class="cc-chip">18세 · 2001년생</span>
+          <span class="cc-chip">고2 · 2-2반</span>
+          <span class="cc-chip">임원 후배</span>
+          <span class="cc-chip">163cm</span>
+          <span class="cc-chip">기숙사</span>
+        </div>
+        <p class="char-sec-desc">진심이 관계를 망쳤다. 그래서 더 직선적으로 살기로 했다. 직설은 용기가 아니라 포기에서 왔다.</p>
+        <div class="char-sec-likes">
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl good">좋아하는 것</span>
+            <span class="char-sec-like-val">블랙 커피 · 이른 저녁 · 혼자 걷는 것 · 명확한 대화</span>
+          </div>
+          <div class="char-sec-like-row">
+            <span class="char-sec-like-lbl bad">싫어하는 것</span>
+            <span class="char-sec-like-val">돌려 말하는 것 · 눈치 게임</span>
+          </div>
+        </div>
+        <div class="char-sec-psyche">
+          <p class="psyche-quote">진심을 말해서 또 누군가를 잃는 게 가장 무섭다.<br>그래도 다시 한번, 먼저 감정을 내밀어보는 것.</p>
+        </div>
+      </div>
+    </div>
+    <div class="char-sec-spoiler">
+      <button class="char-sec-sp-btn" onclick="toggleSpoiler(this)">🔒 서사 · 스포일러 포함</button>
+      <div class="char-sec-sp-body">
+        <div class="char-sec-sp-inner">
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">진심이 끝낸 관계</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">친구의 잘못을 진심으로 지적했던 적이 있다. 상대는 나쁜 사람이 아니었다. 그런데도 그 한마디로 관계는 끝났다. 진심이 오히려 관계를 망친다는 결론에 도달했고, 그때부터 더 직선적으로 살기로 했다.</p>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <span class="char-sec-extra-lbl">직설은 용기가 아니다</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">하고 싶은 말은 한다. 다만 그건 용기가 아니라 상처에서 온 것이다. 진심을 말해도 떠날 사람은 떠난다는 체념이 근원이라서, 부탁하는 법은 끝내 배우지 못했다.</p>
+          </div>
+          <div>
+            <span class="char-sec-extra-lbl">유즈키가 불편해하는 이유</span>
+            <p style="font-size:15.5px;color:#2a3a4a;line-height:2;margin-top:.6rem;">유즈키를 있는 그대로 보려고 한다. 완벽해 보이는 너머를 자꾸 들여다보는 시선이라, 유즈키는 그게 불편하다. 유저에게도 자연스럽게 다가가는데, 그 거리가 가까워질수록 유즈키를 자극한다. 다시 한번 먼저 감정을 내미는 것. 토카에게는 그게 가장 어려운 일이다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+</div><!-- /pg-profile -->
+
+
+
+
+<div class="page" id="pg-tips">
+<section class="sec-full tips-bg" id="tips">
+  <div class="sec-inner">
+    <div class="sec-head"><span class="sec-num" style="color:var(--rose)">03</span><h2 class="sec-title" style="color:rgba(255,255,255,.9)">플레이 팁</h2></div>
+    <div class="tips-intro">
+      <div style="display:flex;align-items:flex-start;gap:.8rem;background:rgba(58,144,208,.15);border:1px solid rgba(58,144,208,.25);border-radius:10px;padding:1.2rem 1.3rem;">
+        <span style="font-size:20px;flex-shrink:0;">🖼️</span>
+        <div style="font-size:16px;color:rgba(255,255,255,.9);line-height:1.8;word-break:keep-all;">
+          <strong style="color:rgba(160,220,255,.95);">이미지 켜기를 추천합니다.</strong><br>
+          캐릭터가 보내는 문자는 전부 이미지로 전송됩니다. 이미지를 꺼두면 메시지 화면 자체가 보이지 않으니 꼭 켜두세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 장면 지시 문법 -->
+    <div class="sc-title" style="color:rgba(255,255,255,.85);font-family:'Noto Serif KR',serif;font-size:1.2rem;font-weight:300;margin-bottom:1.2rem;">✎ 장면 지시 문법</div>
+    <div class="tips-sc-grid" style="margin-bottom:1.6rem;">
+      <div class="tips-sc-card">
+        <span class="tsc-cmd">OOC :</span>
+        <div class="tsc-name">장면 · 시간 직접 지시</div>
+        <div class="tsc-body">서사 밖에서 장면을 지정. AI가 바로 반영해 이어간다.</div>
+        <div class="tsc-example">*OOC : 점심시간, 옥상*</div>
+        <div class="tsc-example">*OOC : 수업이 끝난 뒤*</div>
+        <div class="tsc-example">*그날 저녁 유즈키의 집* · 유즈키 POV 전환</div>
+      </div>
+    </div>
+
+    <!-- 단축어 -->
+    <div class="sc-title" style="color:rgba(255,255,255,.85);font-family:'Noto Serif KR',serif;font-size:1.2rem;font-weight:300;margin-bottom:1.2rem;">⌨ 단축어</div>
+    <div class="tips-sc-grid">
+      <div class="tips-sc-card">
+        <span class="tsc-cmd">/메시지</span>
+        <div class="tsc-name">캐릭터에게 직접 문자 보내기</div>
+        <div class="tsc-body">유즈키에게 직접 카톡을 보내는 장면. 학교 밖 시간, 두번째 시작설정에서 특히 효과적.</div>
+        <div class="tsc-example">*OOC : 그날 저녁. /메시지 유즈키 [뭐해?]*</div>
+        <div style="margin-top:.8rem;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div class="sc-img-box" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%8B%A8%EC%B6%95%EC%96%B4A.png" alt="메시지 예시 1"></div>
+          <div class="sc-img-box" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%8B%A8%EC%B6%95%EC%96%B4A2.png" alt="메시지 예시 2"></div>
+        </div>
+      </div>
+      <div class="tips-sc-card">
+        <span class="tsc-cmd">/며칠뒤</span>
+        <div class="tsc-name">시간 건너뛰기</div>
+        <div class="tsc-body">전개가 막혔을 때. 기간·장소를 직접 지정할 수 있다.</div>
+        <div class="tsc-example">/며칠뒤 3일 자료실</div>
+        <div style="margin-top:.8rem;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div class="sc-img-box" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%8B%A8%EC%B6%95%EC%96%B4B.png" alt="며칠뒤 예시 1"></div>
+          <div class="sc-img-box" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%8B%A8%EC%B6%95%EC%96%B4B2.png" alt="며칠뒤 예시 2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 팁 카드 -->
+    <div class="sc-title" style="color:rgba(255,255,255,.85);font-family:'Noto Serif KR',serif;font-size:1.2rem;font-weight:300;margin-bottom:1.2rem;">✦ 플레이 팁</div>
+    <div class="tip-cards-grid">
+      <div class="tip-card">
+        <div class="tip-card-num">TIP 01</div>
+        <div class="tip-card-title">임원 라인 활용</div>
+        <div class="tip-card-body">정기 회의 · 행사 준비 · 자료실 정리. 유즈키와 자연스럽게 마주칠 수 있는 가장 좋은 명분.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-num">TIP 02</div>
+        <div class="tip-card-title">학교 밖 시간을 노려보기</div>
+        <div class="tip-card-body">골든위크 · 방학 · 축제 당일. 교복과 임원이 아닌 시간이 전개를 바꿔준다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-num">TIP 03</div>
+        <div class="tip-card-title">아카리에게는 가볍게</div>
+        <div class="tip-card-body">소프트볼 · 탄산음료 · 시끌벅적한 화제를 꺼내면 쉽게 친해진다. 단, 집 이야기는 피하는 게 좋다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-num">TIP 04</div>
+        <div class="tip-card-title">사야와의 접점은 도서관</div>
+        <div class="tip-card-body">도서위원회 시간에 도서관에 들르면 자연스럽게 마주친다. 먼저 다가가도 괜찮다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-num">TIP 05</div>
+        <div class="tip-card-title">토카에게는 직접 말하기</div>
+        <div class="tip-card-body">돌려 말하면 오히려 안 통한다. 명확한 대화를 좋아하는 성격이라 직설적으로 다가가는 게 낫다.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-num">TIP 06</div>
+        <div class="tip-card-title">장소가 바뀌면 전개가 열린다</div>
+        <div class="tip-card-body">같은 사람이라도 학교 · 강변 · 편의점 · 축제 현장에 따라 전혀 다른 모습이 나온다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 갤러리 -->
+
+</div>
+
+
+
+
+
+
+
+
+<div class="page" id="pg-gallery">
+<section class="sec" id="gallery">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">갤러리 · B컷</h2></div>
+  
+  <div class="gal-grid">
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EA%B2%89%EC%98%B7.png" alt="겉옷" loading="lazy"><span class="gal-label">겉옷</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%9A%B0%EC%82%B0.png" alt="우산" loading="lazy"><span class="gal-label">우산</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%B2%AD%EC%9E%90%EC%BC%93.png" alt="청자켓" loading="lazy"><span class="gal-label">청자켓</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%B4%88%EC%BD%9C%EB%A6%BF.png" alt="초콜릿" loading="lazy"><span class="gal-label">초콜릿</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EC%B9%B4%ED%8E%98.png" alt="카페" loading="lazy"><span class="gal-label">카페</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EA%B5%B0%EA%B3%A0%EA%B5%AC%EB%A7%88.png" alt="군고구마" loading="lazy"><span class="gal-label">군고구마</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%B6%95%EC%96%B4%EB%B9%B5.png" alt="붕어빵" loading="lazy"><span class="gal-label">붕어빵</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%B2%9A%EA%BD%83%EA%B5%AC%EA%B2%BD.png" alt="벚꽃구경" loading="lazy"><span class="gal-label">벚꽃구경</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%B2%9A%EA%BD%83%EA%B5%AC%EA%B2%BD2.png" alt="벚꽃구경 2" loading="lazy"><span class="gal-label">벚꽃구경 2</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%8B%A8%ED%92%8D%EA%B5%AC%EA%B2%BD.png" alt="단풍구경" loading="lazy"><span class="gal-label">단풍구경</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EA%B2%A8%EC%9A%B8.png" alt="겨울" loading="lazy"><span class="gal-label">겨울</span></div>
+    <div class="gal-item" onclick="openLightbox(this.querySelector('img'))"><img src="https://raw.githubusercontent.com/snowbls/hh/main/%EB%B6%88%EA%BD%83%EB%86%80%EC%9D%B4.png" alt="불꽃놀이" loading="lazy"><span class="gal-label">불꽃놀이</span></div>
+  </div>
+</section>
+
+<!-- NPC -->
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="page" id="pg-school">
+<section class="sec" id="school">
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">소레이 고등학교</h2></div>
+  <div style="width:100%;height:260px;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;cursor:pointer;" onclick="openLightbox(this.querySelector('img'))">
+    <img src="https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%95%99%EA%B5%90%EB%B3%B5%EB%8F%84.png" alt="소레이 고등학교 복도" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <p style="font-size:16px;color:var(--muted);margin-bottom:2.5rem;">蒼嶺高等学校 · 센다이시 아오바구 · 히로세도리역 도보 7분 · 1962년 설립 · 남녀공학</p>
+  <div class="mob-stack" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;align-items:start;">
+    <div class="floor-block">
+      <div class="floor-head">구관(舊館) · 1962년</div>
+      <div class="floor-row"><div class="floor-lbl">1층</div><div class="floor-val">교무실 / 보건실 / 정문</div></div>
+      <div class="floor-row"><div class="floor-lbl">2층</div><div class="floor-val">1학년 교실</div></div>
+      <div class="floor-row"><div class="floor-lbl">3층</div><div class="floor-val">2학년 교실<br><span class="hl">복도 끝 자료실 ★</span></div></div>
+    </div>
+    <div class="floor-block">
+      <div class="floor-head">신관(新館) · 2001년</div>
+      <div class="floor-row"><div class="floor-lbl">1층</div><div class="floor-val">식당 / 매점</div></div>
+      <div class="floor-row"><div class="floor-lbl">2층</div><div class="floor-val">음악실 / 미술실 / 가정실</div></div>
+      <div class="floor-row"><div class="floor-lbl">3층</div><div class="floor-val">3학년 교실</div></div>
+      <div class="floor-row"><div class="floor-lbl">4층</div><div class="floor-val">도서관 / <span class="hl">임원실 ★</span><br>진로상담실</div></div>
+      <div class="floor-row"><div class="floor-lbl">옥상</div><div class="floor-val">잠김 (임원 열쇠 대출)</div></div>
+      <div class="floor-row"><div class="floor-lbl">별관</div><div class="floor-val">체육관 / 부실동<br>야외수영장 (6~8월)</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="space-note">
+        <p style="font-size:17px;line-height:1.8;"><strong style="color:var(--gold)">★ 자료실</strong> (구관 3층 끝)<br>유즈키가 고1부터 혼자 쓰던 공간. 낡은 책장과 창가 선반. 학생이 거의 없다. 올해 리노베이션 예정.</p>
+        <p style="margin-top:.9rem;font-size:17px;line-height:1.8;"><strong style="color:var(--gold)">★ 임원실</strong> (신관 4층)<br>방과후 18시까지 개방. 히로세 강 전망. 유즈키가 방과후 가장 오래 있는 공간.</p>
+      </div>
+      <div>
+        <div style="font-family:'Noto Serif KR',serif;font-size:17px;color:var(--navy);margin-bottom:.7rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);">일과 안내</div>
+        <div class="schedule-note" style="font-size:17px;">
+          08:25 조례 · 08:40 수업 시작<br>
+          15:15 종례 · 15:30~ 방과후<br>
+          18:00 하교 기준
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+
+</div>
+
+
+
+
+
+<div class="page" id="pg-timeline">
+<section class="sec" id="timeline" style="background:var(--bg2);">
+  <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">학사 달력 · 2019년</h2></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:stretch;">
+    <!-- 봄 -->
+    <div style="background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;">
+      <div style="background:linear-gradient(90deg,#e8c4b8,#f0d4c8);padding:.9rem 1.2rem;font-family:'Noto Serif KR',serif;font-size:17px;color:#5a2a1a;">봄 · 1학기</div>
+      <div style="padding:0;flex:1;display:flex;flex-direction:column;">
+        <div class="cal-row" style="flex:1;"><div class="cal-date">4/8</div><div class="cal-event">시업식 · 반 배정</div></div>
+        <div class="cal-row"><div class="cal-date">4/19</div><div class="cal-event">벚꽃 감상회 <span class="cal-sub">(임원 주관)</span></div></div>
+        <div class="cal-row"><div class="cal-date">4/27~5/6</div><div class="cal-event">골든위크</div></div>
+        <div class="cal-row"><div class="cal-date">5/16~20</div><div class="cal-event">1학기 중간고사</div></div>
+        <div class="cal-row"><div class="cal-date">5/18~19</div><div class="cal-event">아오바 축제<br><span class="cal-sub">센다이 최대 봄 축제. 거리 퍼레이드·전통 공연.</span></div></div>
+        <div class="cal-row"><div class="cal-date">6/20</div><div class="cal-event">체육제<br><span class="cal-sub">소원 편지 익명 게시</span></div></div>
+        <div class="cal-row"><div class="cal-date">7/3~9</div><div class="cal-event">1학기 기말고사</div></div>
+        <div class="cal-row" style=""><div class="cal-date" style="border-bottom:none">7/19</div><div class="cal-event" style="border-bottom:none">1학기 종업식</div></div>
+      </div>
+    </div>
+    <!-- 여름 -->
+    <div style="background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;">
+      <div style="background:linear-gradient(90deg,#b8d8f0,#c8e8f8);padding:.9rem 1.2rem;font-family:'Noto Serif KR',serif;font-size:17px;color:#1a3a5a;">여름방학 · 개학</div>
+      <div style="padding:0;flex:1;display:flex;flex-direction:column;">
+        <div class="cal-row" style="flex:1;"><div class="cal-date">7/20~8/31</div><div class="cal-event">여름방학<br><span class="cal-sub">오본(お盆) 8/13~15<br>※ 조상을 기리는 일본 명절 (한국의 추석과 유사)</span></div></div>
+        <div class="cal-row"><div class="cal-date">8/3</div><div class="cal-event">히로세 강 불꽃놀이<br><span class="cal-sub">매년 8월 3일 밤, 히로세 강변에서 열리는 센다이 여름 불꽃 축제.</span></div></div>
+        <div class="cal-row"><div class="cal-date">8/6~8</div><div class="cal-event">타나바타 축제<br><span class="cal-sub">일본 3대 축제. 화려한 종이 장식이 거리를 메운다.</span></div></div>
+        <div class="cal-row"><div class="cal-date">9/2</div><div class="cal-event">2학기 개학</div></div>
+        <div class="cal-row"><div class="cal-date">9/26~27</div><div class="cal-event">문화제 · 소레이제 전야<br><span class="cal-sub">문화제 전날 밤, 임원들만 남아 무대·전시를 셋업한다. 유즈키와 단둘이 남는 구도.</span></div></div>
+        <div class="cal-row"><div class="cal-date">10/4~5</div><div class="cal-event">임원 인수인계 캠프<br><span class="cal-sub">1박 2일</span></div></div>
+        <div class="cal-row" style=""><div class="cal-date" style="border-bottom:none">10/14~16</div><div class="cal-event" style="border-bottom:none">수학여행<br><span class="cal-sub">2박 3일</span></div></div>
+      </div>
+    </div>
+    <!-- 가을·겨울 -->
+    <div style="background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;">
+      <div style="background:linear-gradient(90deg,#d4c8a8,#e4d8b8);padding:.9rem 1.2rem;font-family:'Noto Serif KR',serif;font-size:17px;color:#3a2a1a;">가을 · 겨울 · 입시</div>
+      <div style="padding:0;flex:1;display:flex;flex-direction:column;">
+        <div class="cal-row"><div class="cal-date">10/24~29</div><div class="cal-event">2학기 중간고사</div></div>
+        <div class="cal-row"><div class="cal-date">12/4~10</div><div class="cal-event">2학기 기말고사</div></div>
+        <div class="cal-row"><div class="cal-date">12/6~25</div><div class="cal-event">빛의 페이지<br><span class="cal-sub">12월 조젠지도리를 수만 개의 전구로 밝히는 센다이 겨울 빛 축제. 매년 12월 초~25일.</span></div></div>
+        <div class="cal-row"><div class="cal-date">12/24</div><div class="cal-event">2학기 종업식</div></div>
+        <div class="cal-row"><div class="cal-date">1/18~19</div><div class="cal-event">대학입시센터시험</div></div>
+        <div class="cal-row"><div class="cal-date">2월</div><div class="cal-event">사립대 입시</div></div>
+        <div class="cal-row" style="flex:1;"><div class="cal-date" style="border-bottom:none;">3/1</div><div class="cal-event" style="border-bottom:none;">졸업식 · 소레이노카케<br><span class="cal-sub">소레이노카케: 3학년이 교복 차림으로 구관 복도에서 교문까지 달리는 졸업 전통.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+
+</div>
+
+
+
+
+
+
+
+
+<div class="page" id="pg-map">
+<section class="sec-full map-bg" id="map">
+  <div class="sec-inner">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">센다이 · 소레이 고교 주변 지도</h2></div>
+    <p style="font-size:16px;color:var(--muted);margin-bottom:1.2rem;">마커를 클릭해 장소 정보 확인 · 드래그로 이동 · 휠·버튼으로 줌</p>
+    <div class="map-search-bar">
+      <input class="map-search-input" id="mapSearch" type="text" placeholder="장소 검색 (예: 편의점, 카페, 공원, 역)" oninput="searchMap(this.value)" autocomplete="off" onfocus="showResults()" onblur="setTimeout(hideResults,200)">
+      <div class="map-filter-btns">
+        <button class="mfb active" onclick="filterMap('all',this)">전체</button>
+        <button class="mfb" onclick="filterMap('school',this)">학교</button>
+        <button class="mfb" onclick="filterMap('home',this)">거주지</button>
+        <button class="mfb" onclick="filterMap('spot',this)">명소</button>
+        <button class="mfb" onclick="filterMap('food',this)">카페·식당</button>
+        <button class="mfb" onclick="filterMap('store',this)">편의점</button>
+      </div>
+    </div>
+    <div id="search-results" class="search-results" style="display:none;"></div>
+    <div id="map-wrap">
+      <div id="map-markers"></div>
+      <div class="map-popup" id="mpop"></div>
+    </div>
+    <p style="font-size:16px;color:var(--muted);margin-bottom:.8rem;font-style:italic;">※ 이 지도는 소레이 세계관을 기반으로 한 가상의 지도입니다. 실제 지도를 기반으로 하되 장소와 위치는 창작 요소입니다.</p>
+    <div class="map-legend">
+      <div class="ml-item"><div class="ml-dot" style="background:#1e3356"></div>학교·임원</div>
+      <div class="ml-item"><div class="ml-dot" style="background:#c08840"></div>유즈키 거주지</div>
+      <div class="ml-item"><div class="ml-dot" style="background:#6aaa8e"></div>NPC 거주지</div>
+      <div class="ml-item"><div class="ml-dot" style="background:#c0392b"></div>명소·공원</div>
+      <div class="ml-item"><div class="ml-dot" style="background:#8e44ad"></div>편의점</div>
+      <div class="ml-item"><div class="ml-dot" style="background:#e67e22"></div>카페·식당</div>
+    </div>
+  </div>
+</section>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<footer>氷室結月 · 蒼嶺高等学校 · 2019 · Sendai &nbsp;|&nbsp; snowblossom</footer>
+
+
+<script>
+// SMOOTH SCROLL
+function navScrollTo(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// SPOILER TOGGLE
+function toggleSpoiler(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+  const isOpen = btn.classList.contains('open');
+  btn.textContent = isOpen ? '🔓 서사 · 닫기' : '🔒 서사 · 스포일러 포함';
+}
+
+// QNA
+function toggleQ(btn){
+  const item=btn.closest('.qi'),was=item.classList.contains('open');
+  document.querySelectorAll('.qi').forEach(i=>i.classList.remove('open'));
+  if(!was)item.classList.add('open');
+}
+
+// LIGHTBOX
+function openLightbox(img){
+  const src = img && (img.getAttribute('src') || img.src);
+  if(!src || src==='' || src===window.location.href) return;
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lb-img');
+  lbImg.src = src;
+  lb.style.display = 'flex';
+  lb.classList.add('open');
+}
+function closeLightbox(){const lb=document.getElementById('lb');lb.classList.remove('open');lb.style.display='none';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+
+// MAP
+
+
+// ── MapLibre 지도 ──────────────────────────
+const PLACE_IMGS = {
+  '수영장':       'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EA%B5%90%EB%82%B4%EC%95%BC%EC%99%B8%EC%88%98%EC%98%81%EC%9E%A5.png',
+  '소레이 고등학교': 'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%95%99%EA%B5%90%EC%9A%B4%EB%8F%99%EC%9E%A5.png',
+  '별관':         'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%95%99%EA%B5%90%EC%B2%B4%EC%9C%A1%EA%B4%80.png',
+  '구관':         'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%9E%90%EB%A3%8C%EC%8B%A4.png',
+  '신관':         'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%95%99%EC%83%9D%ED%9A%8C%EC%8B%A4.png',
+  '사야 거주지':   'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%82%AC%EC%95%BC%EC%9D%98%EC%A7%91.png',
+  '아카리 거주지': 'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%95%84%ED%82%A4%EB%9D%BC%EC%9D%98%EC%A7%91.png',
+  '유즈키 거주지': 'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%9C%A0%EC%9D%B4%ED%86%A0%EC%9D%98%EC%A7%91.png',
+  '유즈키 단골 편의점': 'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%8E%B8%EC%9D%98%EC%A0%90.png',
+  '재즈 카페':    'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%9E%AC%EC%A6%88%EC%B9%B4%ED%8E%98.png',
+  '재즈 바':      'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%9E%AC%EC%A6%88%EC%B9%B4%ED%8E%98.png',
+  '조젠지도리':   'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EC%A1%B0%EC%A0%A0%EC%A7%80%EA%B1%B0%EB%A6%AC.png',
+  '편의점':       'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%8E%B8%EC%9D%98%EC%A0%90.png',
+  '필름 현상소':  'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%98%84%EC%83%81%EC%86%8C.png',
+  '히로세 강변':  'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%ED%9E%88%EB%A1%9C%EC%84%B8%EA%B0%95%EB%B3%80.png',
+  '음악 레코드':  'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EB%A0%88%EC%BD%94%EB%93%9C%EA%B0%80%EA%B2%8C.png',
+  '불꽃':         'https://raw.githubusercontent.com/snowbls/h/main/%EB%B0%B0%EA%B2%BD_%EB%B6%88%EA%BD%83%EB%86%80%EC%9D%B4.png',
+};
+
+function getPlaceImg(name) {
+  // 정확히 일치하는 키 우선
+  if (PLACE_IMGS[name]) return PLACE_IMGS[name];
+  // 부분 매칭 (편의점 등 공통 키)
+  for (const [key, url] of Object.entries(PLACE_IMGS)) {
+    if (name.includes(key)) return url;
+  }
+  return null;
+}
+const MARKERS=[
+  // ── 학교 캠퍼스 ──
+  {lat:38.2580545,lng:140.8677466,c:'#1e3356',lg:true, cat:'school',kr:'소레이 고등학교',jp:'蒼嶺高等学校',rom:'소레이 코토각코',
+   desc:'1962년 설립 · 남녀공학<br>구관·신관·별관·기숙사·수영장'},
+  {lat:38.2580623,lng:140.8670717,c:'#1e3356',lg:false,cats:['school','home'],kr:'기숙사',jp:'寮',rom:'료',
+   desc:'토카 거주<br>방에 짐이 거의 없다'},
+  {lat:38.2583318,lng:140.8671314,c:'#1e3356',lg:false,cat:'school',kr:'구관',jp:'旧館',rom:'큐칸',
+   desc:'1962년 건축 · 1~3층<br>3층 복도 끝에 자료실 ★'},
+  {lat:38.2584266,lng:140.8678903,c:'#1e3356',lg:false,cat:'school',kr:'신관',jp:'新館',rom:'신칸',
+   desc:'2001년 증축 · 1~4층<br>4층에 임원실 ★'},
+  {lat:38.2578759,lng:140.8683066,c:'#1e3356',lg:false,cat:'school',kr:'수영장',jp:'プール',rom:'푸루',
+   desc:'6~8월 수업용 야외수영장'},
+  {lat:38.2578081,lng:140.8679397,c:'#1e3356',lg:false,cat:'school',kr:'별관',jp:'別館',rom:'벳칸',
+   desc:'체육관 · 부실동'},
+
+  // ── 역 ──
+  {lat:38.2648,   lng:140.8706,  c:'#555',   lg:false,cat:'spot',  kr:'히로세도리역',jp:'広瀬通駅',rom:'히로세도리에키',
+   desc:'소레이 고교까지 도보 7분<br>지하철 남북선·도자이선'},
+  {lat:38.2601,   lng:140.8821,  c:'#555',   lg:true, cat:'spot',  kr:'센다이역',jp:'仙台駅',rom:'센다이에키',
+   desc:'센다이 중심역<br>JR·지하철·신칸센 환승'},
+  {lat:38.2680,   lng:140.8730,  c:'#555',   lg:false,cat:'spot',  kr:'코토다이역',jp:'勾当台公園駅',rom:'코우토우다이코우엔에키',
+   desc:'지하철 남북선<br>코토다이공원 바로 앞'},
+
+  // ── 거주지 ──
+  {lat:38.2555,   lng:140.8722,  c:'#c08840',lg:true, cat:'home',  kr:'유즈키 거주지',jp:'氷室宅',rom:'히무로타쿠',
+   desc:'조젠지도리 인근<br>부모님과 함께 거주<br>방에 필름 카메라·현상 용품'},
+  {lat:38.2577,   lng:140.8692,  c:'#6aaa8e',lg:false,cat:'home',  kr:'사야 거주지',jp:'岡本宅',rom:'오카모토타쿠',
+   desc:'학교 도보 3분<br>가족과 거주'},
+  {lat:38.2601021,lng:140.8706404,c:'#6aaa8e',lg:false,cat:'home', kr:'아카리 거주지',jp:'橘朱里宅',rom:'타치바나아카리타쿠',
+   desc:'학교 도보 15분<br>아버지와 단둘'},
+
+  // ── 자연·공원 ──
+  {lat:38.2528,   lng:140.8513,  c:'#c0392b',lg:false,cat:'spot',  kr:'아오바성터',jp:'青葉城跡',rom:'아오바죠우아토',
+   desc:'다테 마사무네 센다이성 터<br>시내 전망 · 필름 사진 명소'},
+  {lat:38.2560,   lng:140.8590,  c:'#c0392b',lg:false,cat:'spot',  kr:'스이호덴',jp:'瑞鳳殿',rom:'즈이호우덴',
+   desc:'다테 마사무네 영묘<br>조용하고 사람 적은 역사 명소'},
+  {lat:38.2562611,lng:140.8661266,c:'#27ae60',lg:false,cat:'spot',  kr:'니시공원',jp:'西公園',rom:'니시코우엔',
+   desc:'히로세 강 근처 공원<br>봄 벚꽃 명소'},
+  {lat:38.2650,   lng:140.8668,  c:'#27ae60',lg:false,cat:'spot',  kr:'코토다이공원',jp:'勾当台公園',rom:'코우토우다이코우엔',
+   desc:'시내 중심 공원<br>아오바 축제 행사 중심지'},
+  {lat:38.2598,   lng:140.8720,  c:'#27ae60',lg:false,cat:'spot',  kr:'조젠지도리',jp:'定禅寺通り',rom:'죠우젠지도오리',
+   desc:'은행나무 가로수길<br>가을 단풍 · 재즈 페스티벌'},
+  {lat:38.2557343,lng:140.8684046,c:'#3090c0',lg:false,cat:'spot',  kr:'히로세 강변',jp:'広瀬川',rom:'히로세가와',
+   desc:'봄 벚꽃 · 8월 3일 불꽃놀이<br>유즈키 새벽 러닝 코스'},
+  {lat:38.2378,   lng:140.8611,  c:'#27ae60',lg:false,cat:'spot',  kr:'야기야마 동물공원',jp:'八木山動物公園',rom:'야기야마도우부츠코우엔',
+   desc:'센다이 유일 동물원<br>야기야마 지역 · 케이블카 있음'},
+  {lat:38.2539747,lng:140.8723325,c:'#27ae60',lg:false,cat:'spot',  kr:'츠츠지가오카공원',jp:'榴岡公園',rom:'츠츠지가오카코우엔',
+   desc:'4월 벚꽃 명소'},
+
+  // ── 문화·쇼핑 ──
+  {lat:38.2621,   lng:140.8723,  c:'#6a9bbf',lg:false,cat:'spot',  kr:'센다이 미디어테크',jp:'仙台メディアテーク',rom:'센다이 메디아테에쿠',
+   desc:'복합 문화 시설<br>도서관·미술관·영상 아카이브'},
+  {lat:38.2634,   lng:140.8740,  c:'#c0392b',lg:false,cat:'spot',  kr:'이치반쵸 아케이드',jp:'一番町商店街',rom:'이치반쵸쇼우텐가이',
+   desc:'센다이 최대 쇼핑 아케이드<br>비 와도 지붕 있어 걷기 편함'},
+  {lat:38.2574,   lng:140.8712,  c:'#6a9bbf',lg:false,cat:'spot',  kr:'대형 서점',jp:'大型書店',rom:'오오가타쇼텐',
+   desc:'사야가 방과후 들르는 곳<br>문고 코너가 넓다'},
+  {lat:38.2660,   lng:140.8680,  c:'#6a9bbf',lg:false,cat:'spot',  kr:'음악 레코드 가게',jp:'レコードショップ',rom:'레코도숍',
+   desc:'재즈·시티팝 전문<br>유즈키 혼자 오는 곳'},
+  {lat:38.2572,   lng:140.8712,  c:'#6a9bbf',lg:false,cat:'spot',  kr:'필름 현상소',jp:'フィルム現像店',rom:'피루무겐조우텐',
+   desc:'유즈키가 매주 들르는 곳'},
+  {lat:38.2540,   lng:140.8638,  c:'#c0392b',lg:false,cat:'spot',  kr:'오사키 하치만구',jp:'大崎八幡宮',rom:'오오사키 하치만구',
+   desc:'국보 지정 신사<br>센다이 최대 규모 신사'},
+
+  // ── 편의점 ──
+  {lat:38.2582,   lng:140.8691,  c:'#8e44ad',lg:false,cat:'store', kr:'학교 앞 편의점',jp:'学校前コンビニ',rom:'각코우마에 콘비니',
+   desc:'방과후 학생 집합소<br>유즈키가 가끔 오뎅 구매'},
+  {lat:38.2558746,lng:140.8726696,c:'#8e44ad',lg:false,cat:'store', kr:'유즈키 단골 편의점',jp:'氷室のコンビニ',rom:'히무로노 콘비니',
+   desc:'심야 러닝 후 들르는 곳 · 24시간'},
+  {lat:38.2645,   lng:140.8703,  c:'#8e44ad',lg:false,cat:'store', kr:'히로세도리역 편의점',jp:'広瀬通駅前コンビニ',rom:'히로세도리에키마에 콘비니',
+   desc:'역 바로 앞 편의점'},
+  {lat:38.2552217,lng:140.8691553,c:'#8e44ad',lg:false,cat:'store', kr:'히로세 강변 편의점',jp:'広瀬川沿いコンビニ',rom:'히로세가와조이 콘비니',
+   desc:'불꽃놀이 날 학생들 집합소'},
+
+  // ── 카페·식당 ──
+  {lat:38.2562,   lng:140.8718,  c:'#e67e22',lg:false,cat:'food',  kr:'조젠지 재즈 카페',jp:'ジャズカフェ',rom:'자즈카훼',
+   desc:'재즈가 흐르는 조용한 카페<br>유즈키 혼자 오는 곳'},
+  {lat:38.2578,   lng:140.8695,  c:'#e67e22',lg:false,cat:'food',  kr:'학교 근처 카페',jp:'学校近くのカフェ',rom:'각코우치카쿠노카훼',
+   desc:'방과후 학생들 이용<br>창가에서 교정이 보인다'},
+  {lat:38.2638,   lng:140.8700,  c:'#e67e22',lg:false,cat:'food',  kr:'패밀리레스토랑',jp:'ファミレス',rom:'파미레스',
+   desc:'역 근처<br>아카리 제안, 유즈키 따라옴'},
+  {lat:38.2635,   lng:140.8693,  c:'#e67e22',lg:false,cat:'food',  kr:'라멘집',jp:'ラーメン屋',rom:'라멘야',
+   desc:'아카리 단골<br>유즈키도 가끔 끌려온다'},
+  {lat:38.2682,   lng:140.8740,  c:'#e67e22',lg:false,cat:'food',  kr:'재즈 바',jp:'ジャズバー',rom:'자즈바아',
+   desc:'조젠지 페스티벌 기간 거리 공연<br>미성년자는 외부에서'},
+  {lat:38.2620,   lng:140.8700,  c:'#e67e22',lg:false,cat:'food',  kr:'정식집',jp:'定食屋',rom:'테이쇼쿠야',
+   desc:'집밥 느낌의 점심 가게<br>학생들이 점심시간에 이용'},
+  {lat:38.2600,   lng:140.8710,  c:'#e67e22',lg:false,cat:'food',  kr:'빙수·디저트 가게',jp:'かき氷屋',rom:'카키고오리야',
+   desc:'여름 방학 인기 디저트<br>8월 불꽃놀이 날 줄이 생긴다'},
+  {lat:38.2592937,lng:140.8690952,c:'#e67e22',lg:false,cat:'food',  kr:'스시 가게',jp:'寿司屋',rom:'스시야',
+   desc:'졸업·기념일 단골 가게'},
+  {lat:38.2590,   lng:140.8705,  c:'#e67e22',lg:false,cat:'food',  kr:'타코야키 포장마차',jp:'たこ焼き屋台',rom:'타코야키야타이',
+   desc:'아오바 축제 기간 출점<br>아카리가 좋아하는 간식'},
+];
+
+let mapGL=null, mapMarkers=[], activeFilters=new Set(['all']), searchQuery='';
+
+function initMap(){
+  if(typeof maplibregl==='undefined'){
+    setTimeout(initMap,500); return;
+  }
+  mapGL=new maplibregl.Map({
+    container:'map-wrap',
+    style:'https://tiles.openfreemap.org/styles/bright',
+    center:[140.8677466, 38.2580545],
+    zoom:16,
+    minZoom:14,
+    maxZoom:18,
+    maxBounds:[[140.82,38.22],[140.93,38.31]],
+    attributionControl:true
+  });
+  mapGL.addControl(new maplibregl.NavigationControl({showCompass:false}),'bottom-right');
+
+  mapGL.on('style.load',()=>{
+    // 모든 심볼 레이어(텍스트+아이콘) 완전 숨김
+    mapGL.getStyle().layers.forEach(layer=>{
+      if(layer.type==='symbol'){
+        try{ mapGL.setLayoutProperty(layer.id,'visibility','none'); }catch(e){}
+      }
+    });
+    renderMarkers();
+  });
+
+
+}
+
+function renderMarkers(){
+  if(!mapGL) return;
+  mapMarkers.forEach(m=>m.remove()); mapMarkers=[];
+  const q=searchQuery.toLowerCase();
+  MARKERS.forEach(m=>{
+    const cats = m.cats || [m.cat];
+    const matchCat = activeFilters.has('all') || cats.some(c=>activeFilters.has(c));
+    const matchQ=!q||m.kr.includes(q)||(m.desc&&m.desc.toLowerCase().includes(q));
+    if(!matchCat||!matchQ) return;
+    const el=document.createElement('div');
+    const sz=m.lg?22:18;
+    const ph=m.lg?30:24;
+    el.style.cssText='cursor:pointer;pointer-events:all;display:flex;flex-direction:column;align-items:center;';
+    el.innerHTML=
+      '<div style="background:#fff;color:#1a2a3a;font-weight:700;font-size:11px;padding:3px 8px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.4);white-space:nowrap;margin-bottom:2px;font-family:sans-serif;">'+m.kr+'</div>'+
+      '<svg width="'+sz+'" height="'+ph+'" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 1px 3px rgba(0,0,0,.4));display:block;">'+
+        '<path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20S24 21 24 12C24 5.37 18.63 0 12 0z" fill="'+m.c+'" stroke="white" stroke-width="1.5"/>'+
+        '<circle cx="12" cy="12" r="5.5" fill="white" opacity="0.95"/>'+
+      '</svg>';
+    const popup=new maplibregl.Popup({offset:35,closeButton:true,maxWidth:'300px'})
+      .setHTML((() => {
+      const placeImg = getPlaceImg(m.kr);
+      const imgHtml = placeImg ? `<img src="${placeImg}" style="width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:.6rem;display:block;cursor:zoom-in;" onclick="openLightbox(this)">` : '';
+      return `${imgHtml}<div style="font-family:'Noto Serif KR',serif;font-size:17px;color:#1a3a5a;margin-bottom:.3rem;">${m.kr}</div><div style="font-size:17px;color:#888;margin-bottom:.3rem;">${m.jp} · ${m.rom}</div><div style="font-size:16px;color:#3a3048;line-height:1.7;">${m.desc}</div>`;
+    })());
+    const marker=new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat([m.lng,m.lat]).setPopup(popup).addTo(mapGL);
+    mapMarkers.push(marker);
+  });
+}
+
+function filterMap(cat,btn){
+  if(cat==='all'){
+    activeFilters=new Set(['all']);
+    document.querySelectorAll('.mfb').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.mfb').forEach(b=>{if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'all'"))b.classList.add('active');});
+  } else {
+    if(activeFilters.has('all')){
+      activeFilters.delete('all');
+      document.querySelectorAll('.mfb').forEach(b=>{if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'all'"))b.classList.remove('active');});
+    }
+    if(activeFilters.has(cat)){
+      activeFilters.delete(cat);
+      if(btn)btn.classList.remove('active');
+      if(activeFilters.size===0){activeFilters.add('all');document.querySelectorAll('.mfb').forEach(b=>{if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'all'"))b.classList.add('active');});}
+    } else {
+      activeFilters.add(cat);
+      if(btn)btn.classList.add('active');
+    }
+  }
+  renderMarkers(); populateResults();
+}
+function searchMap(q){
+  searchQuery=q; renderMarkers(); populateResults();
+  if(q) document.getElementById('search-results').style.display='block';
+}
+function populateResults(){
+  const panel=document.getElementById('search-results');
+  const q=searchQuery.toLowerCase();
+  const filtered=MARKERS.filter(m=>{
+    const cats = m.cats || [m.cat];
+    const mc=activeFilters.has('all')||cats.some(c=>activeFilters.has(c));
+    const mq=!q||m.kr.includes(q)||(m.desc&&m.desc.toLowerCase().includes(q));
+    return mc&&mq;
+  });
+  if(!q&&activeFilters.has('all')){panel.style.display='none';return;}
+  panel.innerHTML=filtered.length===0
+    ?'<div style="padding:1.2rem;text-align:center;color:var(--muted);font-size:16px;">검색 결과 없음</div>'
+    :filtered.map(m=>`<div style="display:flex;gap:1rem;padding:.9rem 1.2rem;border-bottom:1px solid var(--border);cursor:pointer;" onclick="goToMarker(${m.lat},${m.lng})"><div style="width:11px;height:11px;border-radius:50%;background:${m.c};flex-shrink:0;margin-top:3px;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,.2);"></div><div><div style="font-size:16px;color:var(--navy);font-family:'Noto Serif KR',serif;">${m.kr}</div><div style="font-size:16px;color:var(--muted);">${m.jp}</div></div></div>`).join('');
+  panel.style.display='block';
+}
+function showResults(){if(searchQuery||(!activeFilters.has('all'))){document.getElementById('search-results').style.display='block';populateResults();}}
+function hideResults(){setTimeout(()=>document.getElementById('search-results').style.display='none',200);}
+function goToMarker(lat,lng){
+  if(mapGL)mapGL.flyTo({center:[lng,lat],zoom:17,duration:800});
+  document.getElementById('search-results').style.display='none';
+}
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelector('.mfb').classList.add('active');
+  // MapLibre 초기화
+  if(typeof maplibregl !== 'undefined'){
+    initMap();
+  } else {
+    const s=document.createElement('script');
+    s.src='https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js';
+    s.onload=initMap;
+    document.head.appendChild(s);
+  }
+});
+</script>
+
+</div>
+
+</div>
+
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+</div>
+
+
+<!-- ===== SPLASH SCREEN ===== -->
+<div id="splash" onclick="closeSplash()">
+  <img src="https://raw.githubusercontent.com/snowbls/hh/main/%EA%B8%B4%EA%B1%B0.webp" alt="第一原則、恋に落ちないこと。" id="splash-img">
+  <div id="splash-hint">탭하여 입장</div>
+</div>
+
+<!-- ===== BGM PLAYER ===== -->
+<div id="bgm-player">
+  <audio id="bgm-audio"></audio>
+  <button id="bgm-fab" onclick="bgmTogglePlayer()" title="BGM">♪</button>
+  <div id="bgm-bar" style="display:none;">
+    <div id="bgm-row1">
+      <span id="bgm-title">—</span>
+      <div style="display:flex;gap:4px;align-items:center;">
+        <button id="bgm-list-btn" onclick="bgmToggleList()" title="재생목록">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/>
+          </svg>
+        </button>
+        <button onclick="bgmTogglePlayer()" title="접기" style="font-size:13px !important;opacity:.5 !important;padding:2px 5px !important;">✕</button>
+      </div>
+    </div>
+    <div id="bgm-row2">
+      <button onclick="bgmPrev()" title="이전 곡">⏮</button>
+      <button id="bgm-toggle" onclick="bgmToggle()">▶</button>
+      <button onclick="bgmNext()" title="다음 곡">⏭</button>
+    </div>
+    <!-- 진행 바 -->
+    <div id="bgm-seek-wrap">
+      <span id="bgm-cur">0:00</span>
+      <input type="range" id="bgm-seek" min="0" max="100" value="0" oninput="bgmSeek(this.value)">
+      <span id="bgm-dur">0:00</span>
+    </div>
+    <!-- 음량 -->
+    <div id="bgm-row3">
+      <button id="bgm-vol-btn" onclick="bgmToggleVol()" title="음량">🔊</button>
+      <div id="bgm-vol-wrap" class="bgm-hidden">
+        <input type="range" id="bgm-vol" min="0" max="100" value="70" oninput="bgmSetVol(this.value)">
+      </div>
+      <button id="bgm-mode" onclick="bgmCycleMode()"><span id="bgm-mode-label">ALL</span></button>
+    </div>
+  </div>
+  <div id="bgm-list" class="bgm-hidden">
+    <div class="bgm-list-title">🎵 BGM</div>
+    <ul id="bgm-tracks"></ul>
+  </div>
+</div>
+
+<style>
+/* SPLASH */
+#splash {
+  position:fixed; inset:0; z-index:9999;
+  background:#0a1520;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  cursor:pointer;
+  transition:opacity .6s ease;
+}
+#splash-img {
+  max-width:min(420px, 90vw);
+  max-height:90vh;
+  object-fit:contain;
+  border-radius:12px;
+  box-shadow:0 20px 80px rgba(0,0,0,.6);
+  animation:splashIn .8s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes splashIn {
+  from { opacity:0; transform:scale(.92) translateY(20px); }
+  to   { opacity:1; transform:scale(1)   translateY(0); }
+}
+#splash-hint {
+  margin-top:24px;
+  color:rgba(255,255,255,.5);
+  font-size:17px;
+  letter-spacing:.12em;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100%{opacity:.4} 50%{opacity:.9}
+}
+#splash.fade-out { opacity:0; pointer-events:none; }
+
+/* BGM PLAYER */
+#bgm-player {
+  position:fixed; bottom:24px; right:24px; z-index:800;
+  font-family:'Noto Sans KR',sans-serif;
+}
+#bgm-fab {
+  width:44px; height:44px;
+  border-radius:50%;
+  background:rgba(8,18,36,.92);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(120,180,255,.25);
+  color:#7ac0ff;
+  font-size:20px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+  transition:background .2s, transform .2s;
+}
+#bgm-fab:hover { background:rgba(20,40,70,.95); transform:scale(1.08); }
+#bgm-fab.open { display:none; }
+#bgm-bar {
+  display:flex; flex-direction:column; gap:8px;
+  cursor:grab;
+  background:rgba(8,18,36,.92);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(120,180,255,.18);
+  border-radius:16px;
+  padding:12px 16px;
+  color:#c8e0f8;
+  box-shadow:0 8px 32px rgba(0,0,0,.45);
+  width:230px;
+}
+#bgm-row1 { display:flex; align-items:center; justify-content:space-between; }
+#bgm-row2 { display:flex; align-items:center; justify-content:center; gap:4px; }
+#bgm-row3 { display:flex; align-items:center; gap:6px; }
+#bgm-title {
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  font-size:12px; color:rgba(200,224,248,.75); max-width:170px;
+}
+#bgm-bar button {
+  background:none; border:none; color:#c8e0f8;
+  cursor:pointer; opacity:.7; transition:opacity .15s;
+  padding:4px 6px; font-size:16px;
+}
+#bgm-bar button:hover { opacity:1; }
+#bgm-toggle {
+  font-size:20px !important;
+  width:36px; height:36px;
+  background:rgba(100,160,255,.15) !important;
+  border-radius:50% !important;
+  border:1px solid rgba(100,160,255,.25) !important;
+  opacity:1 !important;
+  display:flex; align-items:center; justify-content:center;
+}
+#bgm-toggle:hover { background:rgba(100,160,255,.28) !important; }
+
+/* 목록 버튼 - 버튼처럼 보이게 */
+#bgm-list-btn {
+  display:flex !important; align-items:center; justify-content:center;
+  width:28px !important; height:22px !important;
+  padding:0 !important;
+  background:rgba(100,160,255,.12) !important;
+  border:1px solid rgba(100,160,220,.3) !important;
+  border-radius:6px !important;
+  opacity:1 !important;
+  color:#7ac0ff !important;
+  transition:background .15s, border-color .15s !important;
+}
+#bgm-list-btn:hover {
+  background:rgba(100,160,255,.25) !important;
+  border-color:rgba(100,160,220,.6) !important;
+  opacity:1 !important;
+}
+
+/* 진행 바 */
+#bgm-seek-wrap {
+  display:flex; align-items:center; gap:5px;
+}
+#bgm-cur, #bgm-dur {
+  font-size:10px; color:rgba(200,224,248,.5);
+  white-space:nowrap; flex-shrink:0;
+  font-variant-numeric: tabular-nums;
+}
+#bgm-seek {
+  -webkit-appearance:none; appearance:none;
+  flex:1; height:3px;
+  background:rgba(200,224,248,.2);
+  border-radius:2px; outline:none; cursor:pointer;
+}
+#bgm-seek::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  width:11px; height:11px;
+  border-radius:50%;
+  background:#7ac0ff;
+  cursor:pointer;
+}
+
+/* 음량 버튼 */
+#bgm-vol-btn {
+  font-size:15px !important;
+  padding:2px 5px !important;
+  background:rgba(100,160,255,.1) !important;
+  border:1px solid rgba(100,160,220,.25) !important;
+  border-radius:6px !important;
+  opacity:1 !important;
+  flex-shrink:0;
+}
+#bgm-vol-btn:hover { background:rgba(100,160,255,.22) !important; }
+#bgm-vol-wrap {
+  flex:1; overflow:hidden;
+  transition:max-width .25s ease, opacity .25s ease;
+  max-width:80px; opacity:1;
+}
+#bgm-vol-wrap.bgm-hidden {
+  display:flex !important; /* override bgm-hidden for animation */
+  max-width:0 !important; opacity:0 !important;
+  pointer-events:none;
+}
+#bgm-vol {
+  -webkit-appearance:none; appearance:none;
+  width:100%; height:3px;
+  background:rgba(200,224,248,.2);
+  border-radius:2px; outline:none; cursor:pointer;
+}
+#bgm-vol::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  width:11px; height:11px;
+  border-radius:50%;
+  background:#7ac0ff;
+  cursor:pointer;
+}
+
+#bgm-mode {
+  margin-left:auto;
+  padding:2px 9px !important;
+  border:1px solid rgba(100,160,220,.3) !important;
+  border-radius:20px !important;
+  font-size:11px !important;
+  opacity:1 !important;
+  color:#7ac0ff !important;
+  background:rgba(60,120,200,.12) !important;
+  transition:all .2s !important;
+}
+#bgm-mode:hover { background:rgba(60,120,200,.25) !important; }
+#bgm-mode[data-mode="1"] { color:#ffb870 !important; border-color:rgba(255,184,112,.3) !important; background:rgba(255,184,112,.1) !important; }
+#bgm-mode[data-mode="2"] { color:#8899aa !important; border-color:rgba(136,153,170,.3) !important; background:rgba(136,153,170,.06) !important; }
+
+#bgm-list {
+  position:absolute; bottom:calc(100% + 8px); right:0;
+  background:rgba(12,24,40,.95);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(100,160,220,.2);
+  border-radius:12px;
+  min-width:220px;
+  padding:10px 0;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+}
+.bgm-hidden { display:none; }
+.bgm-list-title {
+  padding:4px 16px 8px;
+  font-size:11px; color:rgba(180,210,240,.6);
+  letter-spacing:.08em;
+}
+#bgm-tracks { list-style:none; }
+#bgm-tracks li {
+  padding:8px 16px;
+  font-size:13px; color:#c8e0f8;
+  cursor:pointer;
+  transition:background .15s;
+  display:flex; align-items:center; gap:8px;
+}
+#bgm-tracks li:hover { background:rgba(60,120,200,.2); }
+#bgm-tracks li.active { color:#7ac0ff; }
+#bgm-tracks li.active::before { content:"▶"; font-size:10px; }
+#bgm-tracks li:not(.active)::before { content:"　"; font-size:10px; }
+
+/* PAGE SYSTEM */
+.page{display:none !important;}
+.page.active{display:block !important;}
+nav .nav-links a.active{color:var(--sky);border-bottom:2px solid var(--sky);}
+</style>
+
+<script>
+// ====== SPLASH ======
+function closeSplash() {
+  const s = document.getElementById('splash');
+  s.classList.add('fade-out');
+  setTimeout(() => s.remove(), 700);
+  bgmPlay(0);
+}
+
+// ====== BGM ======
+function bgmTogglePlayer() {
+  const bar = document.getElementById('bgm-bar');
+  const fab = document.getElementById('bgm-fab');
+  const list = document.getElementById('bgm-list');
+  if (bar.style.display === 'none') {
+    bar.style.display = 'flex';
+    fab.classList.add('open');
+  } else {
+    bar.style.display = 'none';
+    list.classList.add('bgm-hidden');
+    fab.classList.remove('open');
+  }
+}
+
+// ====== BGM ======
+const BGM_TRACKS = [
+  { title: "절대로 사랑에 빠지지 말 것", url: "https://raw.githubusercontent.com/snowbls/h/main/%EC%A0%88%EB%8C%80%EB%A1%9C%20%EC%82%AC%EB%9E%91%EC%97%90%20%EB%B9%A0%EC%A7%80%EC%A7%80%20%EB%A7%90%20%EA%B2%83.mp3" },
+  { title: "좋아하지 않는 척", url: "https://raw.githubusercontent.com/snowbls/h/main/%EC%A2%8B%EC%95%84%ED%95%98%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%B2%99.mp3" },
+  { title: "좋아하지 않는 척 2", url: "https://raw.githubusercontent.com/snowbls/h/main/%EC%A2%8B%EC%95%84%ED%95%98%EC%A7%80%20%EC%95%8A%EB%8A%94%EC%B2%992.mp3" },
+  { title: "읽고 지운 메세지", url: "https://raw.githubusercontent.com/snowbls/h/main/%EC%9D%BD%EA%B3%A0%20%EC%A7%80%EC%9A%B4%20%EB%A9%94%EC%84%B8%EC%A7%80.mp3" },
+  { title: "소레이의 비상", url: "https://raw.githubusercontent.com/snowbls/h/main/%EC%86%8C%EB%A0%88%EC%9D%B4%EC%9D%98%20%EB%B9%84%EC%83%81.mp3" },
+];
+// 0=전체반복 1=한곡반복 2=반복없음
+const MODE_LABELS_SHORT = ["ALL", "1곡", "OFF"];
+const MODE_LABELS = ["전체반복","한곡반복","반복없음"];
+let bgmIdx = 0, bgmMode = 0, bgmPlaying = false;
+
+const audio = document.getElementById('bgm-audio');
+const titleEl = document.getElementById('bgm-title');
+const toggleBtn = document.getElementById('bgm-toggle');
+const modeBtn = document.getElementById('bgm-mode');
+const trackList = document.getElementById('bgm-tracks');
+
+function bgmInit() {
+  document.getElementById("bgm-mode-label").textContent = MODE_LABELS_SHORT[bgmMode];
+  modeBtn.dataset.mode = bgmMode;
+  audio.volume = 0.7;
+  trackList.innerHTML = '';
+  BGM_TRACKS.forEach((t, i) => {
+    const li = document.createElement('li');
+    li.textContent = t.title;
+    li.onclick = () => bgmPlay(i);
+    li.id = 'track-' + i;
+    trackList.appendChild(li);
+  });
+  bgmLoad(0);
+
+  // 진행 바 업데이트
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    const seekEl = document.getElementById('bgm-seek');
+    if (seekEl) seekEl.value = pct;
+    document.getElementById('bgm-cur').textContent = fmtTime(audio.currentTime);
+    document.getElementById('bgm-dur').textContent = fmtTime(audio.duration);
+  });
+  audio.addEventListener('loadedmetadata', () => {
+    document.getElementById('bgm-dur').textContent = fmtTime(audio.duration);
+  });
+}
+
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function bgmSeek(val) {
+  if (!audio.duration || isNaN(audio.duration)) return;
+  audio.currentTime = (val / 100) * audio.duration;
+}
+
+function bgmToggleVol() {
+  const wrap = document.getElementById('bgm-vol-wrap');
+  wrap.classList.toggle('bgm-hidden');
+}
+
+function bgmLoad(idx) {
+  bgmIdx = idx;
+  audio.src = BGM_TRACKS[idx].url;
+  titleEl.textContent = BGM_TRACKS[idx].title;
+  document.querySelectorAll('#bgm-tracks li').forEach((li,i) =>
+    li.classList.toggle('active', i === idx));
+}
+
+function bgmPlay(idx) {
+  bgmLoad(idx);
+  const p = audio.play();
+  if (p !== undefined) p.then(() => { bgmPlaying = true; toggleBtn.textContent = '⏸'; }).catch(() => {});
+  else { bgmPlaying = true; toggleBtn.textContent = '⏸'; }
+}
+
+function bgmToggle() {
+  if (!audio.src || audio.src === window.location.href) return;
+  if (bgmPlaying) {
+    audio.pause(); bgmPlaying = false; toggleBtn.textContent = '▶';
+  } else {
+    audio.play(); bgmPlaying = true; toggleBtn.textContent = '⏸';
+  }
+}
+
+function bgmPrev() {
+  const idx = (bgmIdx - 1 + BGM_TRACKS.length) % BGM_TRACKS.length;
+  bgmPlay(idx);
+}
+
+function bgmNext() {
+  if (bgmMode === 2) {
+    audio.pause(); bgmPlaying = false; toggleBtn.textContent = '▶'; return;
+  }
+  const idx = (bgmIdx + 1) % BGM_TRACKS.length;
+  bgmPlay(idx);
+}
+
+function bgmCycleMode() {
+  bgmMode = (bgmMode + 1) % 3;
+  document.getElementById("bgm-mode-label").textContent = MODE_LABELS_SHORT[bgmMode];
+  modeBtn.dataset.mode = bgmMode;
+  modeBtn.title = MODE_LABELS[bgmMode];
+}
+
+function bgmSetVol(v) {
+  audio.volume = v / 100;
+  const btn = document.getElementById('bgm-vol-btn');
+  if (btn) btn.textContent = v == 0 ? '🔇' : v < 50 ? '🔉' : '🔊';
+}
+
+function bgmToggleList() {
+  document.getElementById('bgm-list').classList.toggle('bgm-hidden');
+}
+
+audio.addEventListener('ended', () => {
+  if (bgmMode === 1) { audio.play(); }
+  else if (bgmMode === 0) { bgmPlay((bgmIdx+1) % BGM_TRACKS.length); }
+  else { bgmPlaying = false; toggleBtn.textContent = '▶'; }
+});
+
+
+
+// 다음 탭 버튼 동적 삽입
+const PAGE_ORDER_LIST = [
+  ['pg-profile','프로필'], ['pg-tips','플레이팁'],
+  ['pg-gallery','갤러리'], ['pg-school','학교'],
+  ['pg-timeline','달력'], ['pg-map','지도']
+];
+document.addEventListener('DOMContentLoaded', () => {
+  PAGE_ORDER_LIST.forEach(([pgId, label], i) => {
+    if (i + 1 >= PAGE_ORDER_LIST.length) return;
+    const [nextId, nextLabel] = PAGE_ORDER_LIST[i+1];
+    const page = document.getElementById(pgId);
+    if (!page) return;
+    const btn = document.createElement('div');
+    btn.style.cssText = 'text-align:center;padding:2rem 0 1.5rem;';
+    btn.innerHTML = `<button class="next-page-btn" onclick="showPage('${nextId}')">${nextLabel} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;vertical-align:middle;"><path d="M9 18l6-6-6-6"/></svg></button>`;
+    page.appendChild(btn);
+  });
+});
+
+// 햄버거 메뉴
+function toggleMenu() {
+  const menu = document.getElementById('nav-menu');
+  menu.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('nav-menu').classList.remove('open');
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const page = document.getElementById(id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'" + id + "'")) {
+      a.classList.add('active');
+    }
+  });
+  window.scrollTo(0, 0);
+}
+document.addEventListener('DOMContentLoaded', () => { showPage('pg-profile'); });
+
+document.addEventListener('DOMContentLoaded', bgmInit);
+document.addEventListener('DOMContentLoaded', () => {
+
+// NPC 이미지 로드시 SVG placeholder 숨기기
+document.querySelectorAll('.npc-img img').forEach(img => {
+  if (img.src && img.src !== window.location.href) {
+    const svg = img.parentElement.querySelector('svg');
+    const ph = img.parentElement.querySelector('.npc-img-ph');
+    if (svg) svg.style.display = 'none';
+    if (ph) ph.style.display = 'none';
+  }
+  img.onload = function() {
+    const svg = this.parentElement.querySelector('svg');
+    const ph = this.parentElement.querySelector('.npc-img-ph');
+    if (svg) svg.style.display = 'none';
+    if (ph) ph.style.display = 'none';
+  };
+});
+});
+
+// BGM 드래그
+(function() {
+  const el = document.getElementById('bgm-player');
+  let isDragging = false, startX, startY, origX, origY;
+
+  el.addEventListener('mousedown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+    isDragging = true;
+    startX = e.clientX; startY = e.clientY;
+    const rect = el.getBoundingClientRect();
+    origX = rect.left; origY = rect.top;
+    el.style.transition = 'none';
+    el.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const newX = Math.max(0, Math.min(window.innerWidth - el.offsetWidth, origX + dx));
+    const newY = Math.max(0, Math.min(window.innerHeight - el.offsetHeight, origY + dy));
+    el.style.left = newX + 'px';
+    el.style.top = newY + 'px';
+    el.style.right = 'auto';
+    el.style.bottom = 'auto';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    el.style.cursor = '';
+  });
+
+  // 터치 지원
+  el.addEventListener('touchstart', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+    const t = e.touches[0];
+    startX = t.clientX; startY = t.clientY;
+    const rect = el.getBoundingClientRect();
+    origX = rect.left; origY = rect.top;
+  }, {passive:true});
+
+  document.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+    const newX = Math.max(0, Math.min(window.innerWidth - el.offsetWidth, origX + dx));
+    const newY = Math.max(0, Math.min(window.innerHeight - el.offsetHeight, origY + dy));
+    el.style.left = newX + 'px';
+    el.style.top = newY + 'px';
+    el.style.right = 'auto';
+    el.style.bottom = 'auto';
+  }, {passive:true});
+})();
+
+</script>
+
+</body>
+</html>
